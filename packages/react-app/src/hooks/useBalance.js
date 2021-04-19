@@ -1,10 +1,12 @@
   
 import { useState, useEffect } from 'react';
 import { useWeb3React } from '@web3-react/core';
+import useBlock from './useBlock'
 
 const useBalance = () => {
     const { account, library, chainId } = useWeb3React()
     const [balance, setBalance] = useState(0)
+    const block = useBlock()
 
     useEffect(() => {
       if (!!account && !!library) {
@@ -28,7 +30,7 @@ const useBalance = () => {
           setBalance(undefined)
         }
       }
-    }, [account, library, chainId]) // ensures refresh if referential identity of library doesn't change across chainIds
+    }, [account, chainId]) // ensures refresh if referential identity of library doesn't change across chainIds
     
     return balance;
 }

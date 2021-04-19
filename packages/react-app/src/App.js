@@ -23,17 +23,20 @@ import {
 } from '@material-ui/core'
 
 import { useWeb3React } from "@web3-react/core";
-
 import { theme } from './theme';
+import useWeb3Modal from "./hooks/useWeb3Modal";
+import Header from './components/header/Header.component';
+import Footer from './components/footer/Footer.component';
 
-import Home from './containers/Home';
+import Home from './containers/home/Home.component';
 
-import Header from './components/header/Header';
 
 function App() {
   const [ darkMode, setDarkmode ] = React.useState(true)
   const { account, library, chainId } = useWeb3React();
   const [ chainID, setChainID ] = React.useState();
+  const [ provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
+  
   const useStyles = makeStyles((_theme) => ({
       container: {
         minHeight: '100vh',
@@ -48,25 +51,31 @@ function App() {
       <Router>
           <Grid 
             container
-            direction="column"
-            justify="center"
             className={classes.container}
           >
-            <Grid item xs>
+            <Grid item xs={12}>
               <Header 
                 title='Project'
                 nav1='nav1'
                 nav2='nav2'
                 nav3='nav3'
                 nav4='about'
-                darkMode={darkMode}
-                action={() => {setDarkmode(!darkMode)}}
+                provider={provider} 
+                loadWeb3Modal={loadWeb3Modal} 
+                logoutOfWeb3Modal={logoutOfWeb3Modal}
               />
             </Grid>
-            <Grid item xs>
+            <Grid item xs={12}>
               <Switch>
-                <Route path="/" exact component={()=> <Home darkMode={darkMode}/>}/>
+                <Route path="/" exact component={Home}/>
               </Switch>
+            </Grid>
+            <Grid item xs={12}>
+              <Footer
+                nav1='nav1'
+                nav2='nav2'
+                nav3='nav3'
+              />
             </Grid>
           </Grid>
       </Router>
