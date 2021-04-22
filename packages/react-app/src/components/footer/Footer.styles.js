@@ -5,17 +5,13 @@ import {
 
 export const useStyles = makeStyles(() => ({
     footer: {
-        backgroundColor: theme.palette.header.main,
+        backgroundColor: theme.palette.footer.main,
         borderTop: `3px solid ${theme.palette.primary.main}`,
-        minHeight:'10vh'
+        minHeight:'16vh'
     },
     title: {
         display: 'none',
-        color: theme.palette.text.main,
-        fontVariantCaps: 'all-small-caps',
-        '&:hover': {
-            color: theme.palette.primary,
-        },
+        color: theme.palette.text.primary,
         [theme.breakpoints.up('sm')]: {
             display: 'block',
         },},

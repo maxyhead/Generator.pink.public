@@ -14,7 +14,7 @@ const _theme = createMuiTheme({
   },
   typography: {
     h1: {
-       
+       fontWeight: '400'
     },
     h2: {
      
@@ -34,22 +34,30 @@ const _theme = createMuiTheme({
       type: 'dark',
      
       primary: {
-          main: '#CC0033',
+          main: '#B23591',
       },
       secondary: {
-        main: "#CC0033" ,
+        main: "#B23591" ,
       },
       background: {
-          main: '#0A0A0B',
+          main: '#fffff',
       },
       header: {
-          main: "#000002"
+        main: "#2C2B2B"
+      },
+      subcontainer: {
+        dark: "#2C2B2B",
+        light: "#fafafa"
+      },
+     
+      footer: {
+        main: "#F3F5F4"
       },
       paper: {
           main: '#0A0A0B'
       },
       text: {
-          primary: "#fafafa",
+          primary: "#141414",
           secondary: "#fafafa",
       },
   },

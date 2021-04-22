@@ -9,7 +9,7 @@ import { formatter } from '../../../utils/utils'
 import { useWeb3React } from '@web3-react/core';
 import { useStyles } from './InfoCard.styles';
 
-const ClaimCard = () => {
+const MinterCard = () => {
 
     const classes = useStyles();
 
@@ -22,3 +22,5 @@ const ClaimCard = () => {
         </MaterialCard>
     )
 }
+
+export default MinterCard; 

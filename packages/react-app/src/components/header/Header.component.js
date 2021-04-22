@@ -45,7 +45,7 @@ const WalletButton = ({ account, provider, loadWeb3Modal, logoutOfWeb3Modal, con
                 size="large"
                 variant={connected} 
                 color="primary"
-                className={classes.gradientButton}
+                className={classes.button}
                 onMouseEnter={() => setIsShown(true)}
                 onMouseLeave={() => setIsShown(false)}
                 onClick={
@@ -61,8 +61,8 @@ const WalletButton = ({ account, provider, loadWeb3Modal, logoutOfWeb3Modal, con
                 >
                 {!provider ? 
                 <>
-                    <Typography variant="body2"noWrap>
-                       Connect
+                    <Typography variant="body2" noWrap>
+                       Connect Wallet
                     </Typography>
                 </> 
                 : 
@@ -134,17 +134,35 @@ const Header = ({title, nav1, nav2, nav3, provider, loadWeb3Modal, logoutOfWeb3M
             <Toolbar className={classes.header}>
                 <Grid 
                     container
-                    spacing={5}
-                    direction="row"
-                    justify="space-between"
+                    spacing={2}
                     alignItems="center"
+                    className={classes.nowrapper}
                 >
-                    <Grid item xs>
-                        <Link to='/'> 
-                            <p>PROJECT IMAGE</p>
-                        </Link>
+                    <Grid  container  direction="row" justify="flex-start" alignItems="center" >
+                        <Grid item >
+                            <Typography 
+                                
+                                component={Link}
+                                to={`/`} 
+                                color="textPrimary"
+                                variant="h4" 
+                                noWrap
+                            >
+                                Generator 
+                            </Typography>
+                        </Grid>
+                        <Grid item >
+                            <Typography 
+                                color="primary"
+                                variant="h4" 
+                                noWrap
+                            >
+                            .
+                            </Typography>
+                        </Grid>
+                        
                     </Grid>
-                    <Grid container item xs  >
+                    <Grid  item >
                         <Grid 
                             container
                             spacing={4}
@@ -179,35 +197,29 @@ const Header = ({title, nav1, nav2, nav3, provider, loadWeb3Modal, logoutOfWeb3M
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid container item xs >
-                        <Grid 
-                            container
-                            spacing={2}
-                            direction="row"
-                            justify="center"
-                            alignItems="center"
-                            className={classes.nowrapper}
-                        >
-                            <Grid item  >
-                                <Button
-                                    size="large"
+                    <Grid 
+                       container  direction="row" justify="flex-end" alignItems="center"
+                        
+                    >
+                        <Grid item >
+                            <Button
+                                size="large"
+                                color="default"
+                                variant='outlined'
+                            >
+                                <Typography 
+                                    className={classes.button}
+                                    variant="body2" 
                                     color="default"
-                                    variant='outlined'
+                                    noWrap
                                 >
-                                   <Typography 
-                                        className={classes.button}
-                                        variant="body2" 
-                                        color="default"
-                                        noWrap
-                                    >
-                                           {formatter.format(Number(accountBalance))} BNB
-                                    </Typography>
-                                </Button> 
-                            </Grid>
-                            <Grid item  >
-                                <WalletButton account={account} provider={provider} loadWeb3Modal={loadWeb3Modal} logoutOfWeb3Modal={logoutOfWeb3Modal} connected={connected}/> 
-                            </Grid>    
+                                       
+                                </Typography>
+                            </Button> 
                         </Grid>
+                        <Grid item >
+                            <WalletButton account={account} provider={provider} loadWeb3Modal={loadWeb3Modal} logoutOfWeb3Modal={logoutOfWeb3Modal} connected={connected}/> 
+                        </Grid>    
                     </Grid>
                 </Grid>
             </Toolbar>

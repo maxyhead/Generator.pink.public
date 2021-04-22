@@ -29,6 +29,7 @@ export const useStyles = makeStyles(() => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        borderRadius: '30px',
     },
     nowrapper: {
         display: 'flex',
