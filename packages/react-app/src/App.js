@@ -29,6 +29,7 @@ import Header from './components/header/Header.component';
 import Footer from './components/footer/Footer.component';
 
 import Home from './containers/home/Home.component';
+import Landing from './containers/landing/Landing.component';
 
 
 function App() {
@@ -66,9 +67,13 @@ function App() {
               />
             </Grid>
             <Grid item xs={12}>
-              <Switch>
-                <Route path="/" exact component={Home}/>
-              </Switch>
+              { account ? 
+                <Switch>
+                  <Route path="/" exact component={Home}/>
+                </Switch>
+              :
+                <Landing/>
+              }
             </Grid>
             <Grid item xs={12}>
               <Footer

@@ -7,18 +7,18 @@ import { withStyles } from "@material-ui/core/styles";
 
 const CssTextField = withStyles({
     root: {
-        color: 'white',
+      
         width: '100%',
         '& .MuiTextField-root': {
             margin: theme.spacing(1),
-            width: '25ch',
+            
           },
         '& .MuiInputBase-root': {
-            color: 'inherit',
+           
           },
         '& .MuiOutlinedInput-root': {
             '& fieldset': {
-            borderColor: theme.palette.primary.main,
+            
             },
         },
     },
@@ -30,7 +30,7 @@ const BasicInput = (props) => {
    
     return (
         <CssTextField
-            variant='standard'
+            variant='outlined'
             InputLabelProps={{
                 shrink: true,
             }}

@@ -5,20 +5,19 @@ import {
 
 export const useStyles = makeStyles({
     card: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '32vh',
         backgroundColor: theme.palette.paper.main,
         color: theme.palette.text.primary,
         borderRadius : "15px",
         padding: "10px"
     },
     content: {
-        color: theme.palette.text.main 
+        padding: '50px'
     },
     nowrapper: {
         display: 'flex',
         flexWrap: 'nowrap'
     },
+    dropzone:{
+        height: '100px'
+    }
 });

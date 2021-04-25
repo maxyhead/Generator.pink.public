@@ -201,22 +201,7 @@ const Header = ({title, nav1, nav2, nav3, provider, loadWeb3Modal, logoutOfWeb3M
                        container  direction="row" justify="flex-end" alignItems="center"
                         
                     >
-                        <Grid item >
-                            <Button
-                                size="large"
-                                color="default"
-                                variant='outlined'
-                            >
-                                <Typography 
-                                    className={classes.button}
-                                    variant="body2" 
-                                    color="default"
-                                    noWrap
-                                >
-                                       
-                                </Typography>
-                            </Button> 
-                        </Grid>
+                        
                         <Grid item >
                             <WalletButton account={account} provider={provider} loadWeb3Modal={loadWeb3Modal} logoutOfWeb3Modal={logoutOfWeb3Modal} connected={connected}/> 
                         </Grid>    
