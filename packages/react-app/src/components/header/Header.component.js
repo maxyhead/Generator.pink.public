@@ -12,10 +12,11 @@ import useTokenBalance from '../../hooks/useTokenBalance';
 import WalletModal from '../walletmodal/WalletModal.component'
 import SettingsIcon from '@material-ui/icons/Settings';
 
-const WalletButton = ({ account, provider, loadWeb3Modal, logoutOfWeb3Modal, connected }) => {
-    const classes = useStyles();
+const WalletButton = ({ provider, loadWeb3Modal, logoutOfWeb3Modal }) => {
+    const { account } = useWeb3React();
     const [ open, setOpen ] = React.useState(false);
     const [ isShown, setIsShown ] = React.useState(false)
+    const classes = useStyles();
 
     function getModalStyle() {
         const top = 50;
@@ -42,8 +43,8 @@ const WalletButton = ({ account, provider, loadWeb3Modal, logoutOfWeb3Modal, con
     return (
         <div>
             <Button
+                variant={account ? 'outlined' : 'contained'}
                 size="large"
-                variant={connected} 
                 color="primary"
                 className={classes.button}
                 onMouseEnter={() => setIsShown(true)}
@@ -88,7 +89,7 @@ const WalletButton = ({ account, provider, loadWeb3Modal, logoutOfWeb3Modal, con
                                 </Typography>
                             </Grid>
                             <Grid item>
-                                <Typography variant="body2"noWrap>
+                                <Typography variant="body2" noWrap>
                                     {account ? account.slice(0,16) : '0x'}...
                                 </Typography>
                             </Grid>
@@ -116,8 +117,8 @@ const WalletButton = ({ account, provider, loadWeb3Modal, logoutOfWeb3Modal, con
     )
 };
 
-const Header = ({title, nav1, nav2, nav3, provider, loadWeb3Modal, logoutOfWeb3Modal}) => {
-    const { account, library } = useWeb3React();
+const Header = ({ nav1, nav2, provider, loadWeb3Modal, logoutOfWeb3Modal}) => {
+    const { account } = useWeb3React();
     const [ connected, setConnected ] = React.useState('contained');
 
     const accountBalance = useBalance();
@@ -134,16 +135,14 @@ const Header = ({title, nav1, nav2, nav3, provider, loadWeb3Modal, logoutOfWeb3M
             <Toolbar className={classes.header}>
                 <Grid 
                     container
-                    spacing={2}
-                    alignItems="center"
-                    className={classes.nowrapper}
+                    justify='center'
+                    alignItems='center'
                 >
-                    <Grid  container  direction="row" justify="flex-start" alignItems="center" >
+                    <Grid  container item xs justify='center' alignItems='center'>
                         <Grid item >
                             <Typography 
-                                
                                 component={Link}
-                                to={`/`} 
+                                to={`/landing`} 
                                 color="textPrimary"
                                 variant="h4" 
                                 noWrap
@@ -162,25 +161,17 @@ const Header = ({title, nav1, nav2, nav3, provider, loadWeb3Modal, logoutOfWeb3M
                         </Grid>
                         
                     </Grid>
-                    <Grid  item >
-                        <Grid 
-                            container
-                            spacing={4}
-                            direction="row"
-                            justify="center"
-                            alignItems="center"
-                            className={classes.nowrapper}
-                        >
+                    <Grid  container item xs spacing={0} justify='space-evenly' alignItems='center'>
                             <Grid item  >
                                 <Typography 
                                     className={classes.title} 
                                     component={Link}
-                                    to={`/tokensale`} 
+                                    to={`/${nav1}`} 
                                     color="textPrimary"
                                     variant="h5" 
-                                    noWrap
+                                    
                                 >
-                                    {nav1}
+                                    {account ? nav1 : ''}
                                 </Typography>
                             </Grid>
                             <Grid item  >
@@ -190,19 +181,16 @@ const Header = ({title, nav1, nav2, nav3, provider, loadWeb3Modal, logoutOfWeb3M
                                     to={`/${nav2}`} 
                                     color="textPrimary"
                                     variant="h5" 
-                                    noWrap
+                                    
                                 >
-                                    {nav2}
+                                     {account ? nav2 : ''}
                                 </Typography>
                             </Grid>
-                        </Grid>
+             
                     </Grid>
-                    <Grid 
-                       container  direction="row" justify="flex-end" alignItems="center"
-                        
-                    >
+                    <Grid  container item xs justify='center' alignItems='center'>
                         <Grid item >
-                            <WalletButton account={account} provider={provider} loadWeb3Modal={loadWeb3Modal} logoutOfWeb3Modal={logoutOfWeb3Modal} connected={connected}/> 
+                            <WalletButton provider={provider} loadWeb3Modal={loadWeb3Modal} logoutOfWeb3Modal={logoutOfWeb3Modal}/> 
                         </Grid>    
                     </Grid>
                 </Grid>

@@ -10,12 +10,13 @@ export const useStyles = makeStyles(() => ({
         minHeight:'5vh'
     },
     title: {
-        display: 'none',
+        display: 'flex',
+        justifyContent: 'center',
         color: theme.palette.text.main,
 
         fontVariantCaps: 'all-small-caps',
         '&:hover': {
-            color: theme.palette.primary,
+            color: theme.palette.primary.main,
         },
         [theme.breakpoints.up('sm')]: {
             display: 'block',

@@ -12,11 +12,11 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 
 import { useWeb3React } from '@web3-react/core';
-import { useStyles } from './CollectionCard.styles';
+import { useStyles } from './ViewCard.styles';
 
 import useGetAllDocuments from '../../../hooks/useGetAllDocuments';
 
-const CollectionCard = () => {
+const ViewCard = () => {
     const {account, chainId, library } = useWeb3React();
     const classes = useStyles();
 
@@ -51,4 +51,4 @@ const CollectionCard = () => {
     )
 }
 
-export default CollectionCard; 
+export default ViewCard; 

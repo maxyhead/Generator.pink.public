@@ -1,0 +1,36 @@
+import React, { useCallback, useEffect, useState } from 'react'
+import BigNumber from 'bignumber.js'
+import { useWeb3React } from '@web3-react/core';
+import useBlock from './useBlock'
+
+import useGetAllDocuments from './useGetAllDocuments'
+
+const useGetUserDocuments = () => {
+    const { account, library, chainId } = useWeb3React();
+    const [ info, setInfo ] = useState([]);
+
+    const block = useBlock();
+    const docs = useGetAllDocuments([]);
+
+    const fetchInfo = useCallback(async () => {
+        const arr = []; 
+        for(let i = 0; i < docs.lenght; i++) {
+            if(docs[i].minter === account) {
+                arr.push(docs[i]);
+            }
+        }
+        setInfo(arr);
+    }, [account, library, docs])
+
+
+    useEffect(() => {
+        if (account && library && id && docs.lenght > 0) {
+            fetchInfo()
+        }
+       
+    }, [account, library, docs, chainId, block])
+
+    return info
+}
+
+export default useGetUserDocuments;

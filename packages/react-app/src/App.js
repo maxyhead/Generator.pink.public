@@ -56,7 +56,8 @@ function App() {
           >
             <Grid item xs={12}>
               <Header 
-               
+                nav1='create'
+                nav2='about'
                 provider={provider} 
                 loadWeb3Modal={loadWeb3Modal} 
                 logoutOfWeb3Modal={logoutOfWeb3Modal}
@@ -66,6 +67,8 @@ function App() {
               { account ? 
                 <Switch>
                   <Route path="/" exact component={Home}/>
+                  <Route path="/landing" exact component={Landing}/>
+                  <Route path="/create" exact component={Home}/>
                 </Switch>
               :
                 <Landing/>
@@ -73,8 +76,8 @@ function App() {
             </Grid>
             <Grid item xs={12}>
               <Footer
-                nav1='nav1'
-                nav2='nav2'
+                nav1='create'
+                nav2='about'
                 nav3='nav3'
               />
             </Grid>
