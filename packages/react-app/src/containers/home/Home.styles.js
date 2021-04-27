@@ -7,7 +7,8 @@ export const useStyles = makeStyles(() => ({
     container: {
         color: theme.palette.text.primary,
         backgroundColor: theme.palette.background.main,
-        minHeight: '85vh'
+        minHeight: '85vh',
+        padding:'20px'
     },
     hero: {
       padding: '50px',
@@ -15,8 +16,6 @@ export const useStyles = makeStyles(() => ({
     },
     subcontainer: {
       padding:'15px 50px 15px 50px',
-      color: theme.palette.text.secondary,
-      backgroundColor: theme.palette.subcontainer.dark,
     },
     subscription: {
       padding:'35px 50px 35px 50px',

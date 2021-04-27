@@ -44,7 +44,7 @@ export default function Dropzone() {
       filesLimit={1}
       maxFileSize={5000000}
       dropzoneText='Drag or Click to upload a file.'
-      
+
     />
   );
 }

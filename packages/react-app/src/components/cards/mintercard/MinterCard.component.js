@@ -6,12 +6,14 @@ import {
     Input, 
     InputLabel
 } from '@material-ui/core'
+
 import MaterialCard from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import DateFnsUtils from '@date-io/date-fns';
-import { DropzoneAreaBase } from "material-ui-dropzone";
+
+import { DropzoneArea } from 'material-ui-dropzone';
 
 import {
   MuiPickersUtilsProvider,
@@ -21,128 +23,286 @@ import {
 
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-
-import { formatter } from '../../../utils/utils'
+import Tooltip from '@material-ui/core/Tooltip';
+import HelpIcon from '@material-ui/icons/Help';
+import AccountBalanceWalletRounded from '@material-ui/icons/AccountBalanceWalletRounded'
+import { formatter, getUniqueID, unixdate, convertTimestamp } from '../../../utils/utils'
 import { useWeb3React } from '@web3-react/core';
 import { useStyles } from './MinterCard.styles';
 
 import BasicInput from '../../inputs/BasicInput';
-
+import useClientIP from '../../../hooks/useClientIp';
+import useUploadFile from '../../../hooks/useUploadFile';
+import useCurrentPrice from '../../../hooks/useCurrentPrice';
+import useBalance from '../../../hooks/useBalance';
+import useMintToken from '../../../hooks/useMintToken';
 
 const MinterCard = () => {
-    // The first commit of Material-UI
-    const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+    const {account, chainId, library } = useWeb3React();
+    const ip = useClientIP();
+    const [ UUID, setUUID ] = React.useState('');
+    const [ title, setTitle] = React.useState('');
+    const [ selectedDate, setSelectedDate] = React.useState(new Date());
+    const [ selectedUnixDate, setUnixDate ] = React.useState(unixdate(new Date()));
+    const [ description, setDescription] = React.useState('');
+    const [ email, setEmail ] = React.useState('');
+    const [ site, setSite ] = React.useState('');
+    const [ file, setFile ] = React.useState({});
+    const [ fileBuffer, setFileBuffer ] = React.useState();
+    const [ ipfsHash, setIpfsHash ] = React.useState();
+    const { onMint } = useMintToken(
+        UUID,
+        title, 
+        description, 
+        ipfsHash,
+        selectedUnixDate, 
+        email,
+        site, 
+        ip 
+    );
 
-    const [files, setFiles] = React.useState([]);
-    const [fileBuffer, setFileBuffer] = React.useState();
-
+    const { hash, onUpload } = useUploadFile(fileBuffer, title, UUID);
+    const reader = new FileReader();
+    const fee = useCurrentPrice();
+    const userBalance = useBalance();
     const classes = useStyles();
+
+    React.useEffect(()=>{
+        setUUID(getUniqueID())
+        if(hash) {
+            console.log(hash)
+            setIpfsHash(hash);
+        }
+    }, [account, hash])
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
+        setUnixDate(unixdate(date))
     };
 
-   
-    const handleAdd = newFiles => {
-        newFiles = newFiles.filter(file => !files.find(f => f.data === file.data));
-        setFiles([...files, ...newFiles]);
-        setFileBuffer(new Buffer.from(newFiles[0].data, 'base64'))
+    const handleChangeFile = (newfiles) => {
+        setFile(newfiles[0])    
+        handleFile(newfiles[0]);
       };
     
-    const handleDelete = deleted => {
-        setFiles(files.filter(f => f !== deleted));
+     const handleDelete = deleted => {
+        setFile(undefined);
         setFileBuffer(null)
     };
     
+  
+    const handleFile = (file) => {
+        if(file !== undefined) {
+            reader.readAsArrayBuffer(file);
+            reader.onloadend = () => {
+                const buffer =  Buffer(reader.result)
+                setFileBuffer(buffer);
+            }
+        }
+    };
 
     return (
         <MaterialCard className={classes.card}>
             <Grid 
                 container
                 spacing={3}
-                alignItems='flex-start'
-               
-            >
+                justify='center'
+            >              
                 <Grid item xs={12}>
                     <CardHeader
-                        title='TOKEN DETAILS'
-                        subheader='UIDD'
-                        action={
-                            <Button>
-                                <MoreVertIcon color='primary' />
-                            </Button>
-                            }
-                        />
-                </Grid>
-        
-                <Grid item xs={12} className={classes.content}>
-                    <BasicInput
-                        type='text'
-                        label='Title'
+                        title={ipfsHash}
+                        subheader={
+                            <Grid container className={classes.subheader} >
+                                <Grid container item xs={6}  spacing={1}  alignItems='center' justify='flex-start' className={classes.nowrapper} >
+                                    <Grid item xs>
+                                        <Typography variant='h4' color='primary'>
+                                            {UUID}
+                                        </Typography> 
+                                    </Grid>
+                                    <Grid item  xs>
+                                        <Tooltip 
+                                            title={ 
+                                                "Unique ID number of the document. Please put this somewhere inside your file for verification"
+                                                }>
+                                            <IconButton size='small' >
+                                                <HelpIcon fontSize='small'/>
+                                            </IconButton>
+                                        </Tooltip> 
+                                    </Grid>
+                                   
+                                </Grid>
+                                <Grid  container item xs={6} spacing={1} alignItems='center' justify='flex-start' className={classes.nowrapper}>
+                                    <Grid item >
+                                        <Typography variant='body1'>
+                                            🌐 
+                                        </Typography> 
+                                    </Grid>
+                                    <Grid item xs>
+                                        <Typography variant='body1'>
+                                            {ip}
+                                        </Typography> 
+                                        
+                                    </Grid>
+                                    <Grid item xs>
+                                        <Tooltip 
+                                            title={ 
+                                                "We use the IP of you computer as a identifier."
+                                                }>
+                                            <IconButton size='small' >
+                                                <HelpIcon fontSize='small'/>
+                                            </IconButton>
+                                        </Tooltip>     
+                                    </Grid>
+                                    
+                                                                 
+                                </Grid>
+                            
+                                <Grid container item  xs={6} spacing={2} direction='row' alignItems='center' justify='flex-start' className={classes.nowrapper}>
+                                    <Grid item >
+                                        <Typography variant='body1' noWrap>
+                                            🪙 
+                                        </Typography> 
+                                    </Grid>
+                                    <Grid item xs>
+                                        <Typography variant='body1' noWrap>
+                                            {fee ? library.utils.fromWei(fee, 'ether') : 'Loading...'}
+                                        </Typography> 
+                                    </Grid>
+                                    <Grid item xs>
+                                        <Tooltip 
+                                            title={ 
+                                                "Fee to be payed in ETH"
+                                                }>
+                                            <IconButton size='small' >
+                                                <HelpIcon fontSize='small'/>
+                                            </IconButton>
+                                        </Tooltip>   
+                                    </Grid>
+                                    
+                                          
+                                </Grid>
+                                <Grid container item xs={6} spacing={2}  direction='row' alignItems='center' justify='flex-end' className={classes.nowrapper}>
+                                    <Grid item >
+                                        <Typography variant='body1' noWrap>
+                                            🏦
+                                        </Typography> 
+                                    </Grid>
+                                    <Grid item xs>
+                                        <Typography variant='body1' noWrap>
+                                            {userBalance ? library.utils.fromWei(userBalance, 'ether') : 'Loading...'}
+                                        </Typography> 
+                                    </Grid>
+                                    <Grid item xs> 
+                                        <Tooltip 
+                                            title={ 
+                                                "Connected wallet balance"
+                                                }>
+                                            <IconButton size='small' >
+                                                <HelpIcon fontSize='small'/>
+                                            </IconButton>
+                                        </Tooltip>         
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        
+                        }
                        
                     />
                 </Grid>
-                <Grid container item xs={12} className={classes.content} justify='center'>
-                    <MuiPickersUtilsProvider utils={DateFnsUtils} >
-                        <KeyboardDatePicker
-                            fullWidth={true}
-                            disableToolbar
-                            variant="inline"
-                            format="MM/dd/yyyy"
-                            margin="normal"
-                            id="date-picker-inline"
-                            label="Validity Date"
-                            value={selectedDate}
-                            onChange={handleDateChange}
-                            KeyboardButtonProps={{
-                                'aria-label': 'change date',
-                        }}
+                <Grid 
+                    container
+                    spacing={2}
+                    className={classes.content}
+                >
+                    <Grid item xs={12} >
+                        <BasicInput
+                            type='text'
+                            label='Title'
+                            onChange={(e)=>{setTitle(e.target.value)}}
                         />
-                    </MuiPickersUtilsProvider>
+                    </Grid>
+                    <Grid item xs={12} >
+                        <BasicInput
+                            type='text'
+                            label='Description'
+                            onChange={(e)=>{setDescription(e.target.value)}}
+                        />
+                    </Grid>
+                    <Grid item xs={12} >
+                        <BasicInput
+                            type='text'
+                            label='Email'
+                            onChange={(e)=>{setEmail(e.target.value)}}
+                        />
+                    </Grid>
+                    <Grid item xs={12} >
+                        <BasicInput
+                            type='text'
+                            label='Website'
+                            onChange={(e)=>{setSite(e.target.value)}}
+                        />
+                    </Grid>
+                    <Grid container item xs={12}  justify='center'>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils} >
+                            <KeyboardDatePicker
+                                fullWidth={true}
+                                disableToolbar
+                                variant="inline"
+                                format="MM/dd/yyyy"
+                                margin="normal"
+                                id="date-picker-inline"
+                                label="Validity Date"
+                                value={selectedDate}
+                                onChange={handleDateChange}
+                                KeyboardButtonProps={{
+                                    'aria-label': 'change date',
+                            }}
+                            />
+                        </MuiPickersUtilsProvider>
+                    </Grid>
+                    <Grid item xs={12} className={classes.content}>
+                        <DropzoneArea
+                            acceptedFiles={['image/png', 'image/jpg', 'image/jpeg', 'image/svg', 'application/pdf']}
+                            fileObjects={file ? file : ''}
+                            onChange={handleChangeFile}
+                            onDelete={handleDelete}
+                            filesLimit={1}
+                            maxFileSize={1048576000}
+                            dropzoneText='Drag or Click to upload a file'
+                        />
+              
+                    </Grid>
+                    <Grid container item xs={12} >
+                        <Grid item xs={12}>
+                           * Accepted files: .jpg / .jpeg / .png / .pdf 
+                       </Grid>
+                    </Grid>
+                    <Grid item xs={12} >
+                        <Button
+                            variant='contained'
+                            fullWidth={true}
+                            color='primary'
+                            size='large'
+                            disabled={ipfsHash != undefined ? true : false}
+                            onClick={onUpload}
+                        >
+                            Upload to IPFS
+                        </Button>
+                    </Grid>
+                    <Grid item xs={12} >
+                        <Button
+                            variant='contained'
+                            fullWidth={true}
+                            color='primary'
+                            size='large'
+                            disabled={ipfsHash != undefined ? false : true}
+                            onClick={onMint}
+                        >
+                            Mint Token
+                        </Button>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} className={classes.content}>
-                    <BasicInput
-                        type='text'
-                        label='Description'
-                        
-                    />
-                </Grid>
-                <Grid item xs={12} className={classes.content}>
-                    <BasicInput
-                        type='text'
-                        label='Email'
-                        
-                    />
-                </Grid>
-                <Grid item xs={12} className={classes.content}>
-                    <BasicInput
-                        type='text'
-                        label='Website'
-                        
-                    />
-                </Grid>
-                <Grid item xs={12} className={classes.content}>
-                    <DropzoneAreaBase
-                        fileObjects={files}
-                        onAdd={handleAdd}
-                        onDelete={handleDelete}
-                        clearOnUnmount={true}
-                        filesLimit={1}
-                        maxFileSize={5000000}
-                        dropzoneText='Drag or Click to upload a file'
-                        className={classes.dropzone}
-                    />
-                </Grid>
-                <Grid item xs={12} className={classes.content}>
-                    <Button
-                        variant='contained'
-                        fullWidth={true}
-                        color='primary'
-                        size='large'
-                    >
-                        Mint Token
-                    </Button>
-                </Grid>
+                
             </Grid>
 
         </MaterialCard>

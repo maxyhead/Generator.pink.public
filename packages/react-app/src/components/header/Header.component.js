@@ -201,7 +201,6 @@ const Header = ({title, nav1, nav2, nav3, provider, loadWeb3Modal, logoutOfWeb3M
                        container  direction="row" justify="flex-end" alignItems="center"
                         
                     >
-                        
                         <Grid item >
                             <WalletButton account={account} provider={provider} loadWeb3Modal={loadWeb3Modal} logoutOfWeb3Modal={logoutOfWeb3Modal} connected={connected}/> 
                         </Grid>    

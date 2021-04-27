@@ -56,11 +56,7 @@ function App() {
           >
             <Grid item xs={12}>
               <Header 
-                title='Project'
-                nav1='nav1'
-                nav2='nav2'
-                nav3='nav3'
-                nav4='about'
+               
                 provider={provider} 
                 loadWeb3Modal={loadWeb3Modal} 
                 logoutOfWeb3Modal={logoutOfWeb3Modal}

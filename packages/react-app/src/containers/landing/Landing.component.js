@@ -6,6 +6,7 @@ import {
 } from '@material-ui/core'
 import { useStyles } from './Landing.styles'
 import { useWeb3React } from "@web3-react/core";
+import { addresses } from "@project/contracts";
 
 function Home() {
   const {account, chainId, library } = useWeb3React();
@@ -33,7 +34,7 @@ function Home() {
     >
       <Grid 
         container 
-        xs={12}  
+       
         alignItems='center'
         className={classes.hero}
       >
@@ -46,7 +47,7 @@ function Home() {
       
       <Grid 
         container 
-        xs={12}  
+       
         alignItems='center'
         className={classes.subcontainer}
         spacing={0}
@@ -57,7 +58,7 @@ function Home() {
           </Typography>
         </Grid>
         <Grid item>
-          <Typography variant="h6" className={classes.subcontainer}>
+          <Typography variant="h6" className={classes.subscription}>
               Generator. is a tokenization service for digital files. It creates an ERC-721 token on Ethereum blockchain which contains information of the referenced file.
           </Typography>
         </Grid>
@@ -74,7 +75,6 @@ function Home() {
       </Grid>
       <Grid 
         container 
-        xs={12}  
         alignItems='center'
         className={classes.hero}
         spacing={0}
@@ -96,7 +96,7 @@ function Home() {
       </Grid>
       <Grid 
         container 
-        xs={12}  
+     
         alignItems='center'
         className={classes.subscription}
         spacing={2}

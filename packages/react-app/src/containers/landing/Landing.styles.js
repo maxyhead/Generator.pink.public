@@ -10,11 +10,11 @@ export const useStyles = makeStyles(() => ({
         minHeight: '85vh'
     },
     hero: {
-      padding: '50px',
+      padding: '150px',
       minHeight: '50vh'
     },
     subcontainer: {
-      padding:'15px 50px 15px 50px',
+      padding:'15px 150px 15px 150px',
       color: theme.palette.text.secondary,
       backgroundColor: theme.palette.subcontainer.dark,
     },

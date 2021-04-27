@@ -20,7 +20,4 @@ export const useStyles = makeStyles({
         display: 'flex',
         flexWrap: 'nowrap'
     },
-    dropzone:{
-        height: '100px'
-    }
 });

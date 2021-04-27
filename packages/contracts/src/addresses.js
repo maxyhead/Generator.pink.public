@@ -1,7 +1,12 @@
 // This address points to a dummy ERC20 contract deployed on Ethereum Mainnet,
 // Goerli, Kovan, Rinkeby and Ropsten. Replace it with your smart contracts.
 const addresses = {
-  generator: "0xc1C0472c0C80bCcDC7F5D01A376Bd97a734B8815",
+  // kovan 
+  42: { 
+    generator: "0x3fcbbe702C1EA3632326189dC3cc441D4a92b50F" 
+  },
+  // mainnet
+  
 };
 
 export default addresses;

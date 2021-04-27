@@ -16,7 +16,7 @@ const useBalance = () => {
           .getBalance(account)
           .then((balance) => {
             if (!stale) {
-              setBalance(library.utils.fromWei(balance, 'ether'))
+              setBalance(balance)
             }
           })
           .catch(() => {

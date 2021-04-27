@@ -43,6 +43,9 @@ contract GeneratorBase is Ownable, ERC721("Generator.pink","GENERATOR") {
    
     struct Document {
         uint256 id;
+
+        string uuid;
+
         // Token Title
         string title;
         // Description of connected file
@@ -59,6 +62,8 @@ contract GeneratorBase is Ownable, ERC721("Generator.pink","GENERATOR") {
         string website; 
 
         address minter; 
+
+        string ipaddress; 
     }
 
     Document[] public documents;
@@ -78,6 +83,8 @@ contract GeneratorBase is Ownable, ERC721("Generator.pink","GENERATOR") {
         USD_FEE = _fee;
         feeReciver = _reciver;
         ref = _ref;
+        _setBaseURI('https://gateway.pinata.cloud/ipfs/');
+
     }
 
     /* ========== EXTERNAL MUTABLE FUNCTIONS ========== */
@@ -92,12 +99,14 @@ contract GeneratorBase is Ownable, ERC721("Generator.pink","GENERATOR") {
      * @param _website Website of creator.
      */
     function addDocument (
+        string memory _uuid,
         string memory _title,
         string memory _description, 
         string memory _uri, 
         uint256 _validationDate,
         string memory _email, 
-        string memory _website
+        string memory _website,
+        string memory _ipaddress
     ) public payable returns(uint256) {
         // handle the payment for the minting proccess.
 
@@ -116,6 +125,7 @@ contract GeneratorBase is Ownable, ERC721("Generator.pink","GENERATOR") {
         // Assemble the struct. 
         Document memory newDoc = Document({
             id: newid,
+            uuid: _uuid,
             title: _title,
             description: _description,
             uri: _uri,
@@ -123,7 +133,8 @@ contract GeneratorBase is Ownable, ERC721("Generator.pink","GENERATOR") {
             timestamp: block.timestamp,
             email: _email,
             website: _website,
-            minter: msg.sender
+            minter: msg.sender,
+            ipaddress: _ipaddress
         });
         // Push it to the array 
         documents.push(newDoc); 
@@ -142,7 +153,7 @@ contract GeneratorBase is Ownable, ERC721("Generator.pink","GENERATOR") {
      * @dev sets a new reciver for the fee. 
      * @param newReciver .
      */
-    function setNewRevicer(address payable newReciver) external onlyOwner {
+    function setNewRevicer(address payable newReciver) public onlyOwner {
         feeReciver = newReciver;
 
     }
@@ -151,9 +162,13 @@ contract GeneratorBase is Ownable, ERC721("Generator.pink","GENERATOR") {
      * @dev sets a new fee amount in USD. Ex. 1 USD. NOT 0.1 USD NO DECIMALS POSSIBLE
      * @param newFee .
      */
-    function setNewFeeInUSD(uint256 newFee) external onlyOwner {
+    function setNewFeeInUSD(uint256 newFee) public onlyOwner {
         USD_FEE = newFee;
 
+    }
+
+    function setBaseURI(string memory baseURI_) public onlyOwner {
+        _setBaseURI(baseURI_);
     }
 
     /* ========== VIEW FUNCTIONS ========== */
@@ -162,10 +177,11 @@ contract GeneratorBase is Ownable, ERC721("Generator.pink","GENERATOR") {
      * @param documentId the ID of the document you want to retrive info from.
      */
     function getDocument(uint256 documentId) 
-        external
+        public
         view
         returns (
-            uint256 id, 
+            uint256 id,
+            string memory uuid, 
             string memory title, 
             string memory description, 
             string memory uri, 
@@ -173,11 +189,13 @@ contract GeneratorBase is Ownable, ERC721("Generator.pink","GENERATOR") {
             uint256 timestamp, 
             string memory email, 
             string memory website,
-            address minter
+            address minter,
+            string memory ipaddress
         )
     {
         Document storage doc = documents[documentId];
         id = documentId; 
+        uuid = doc.uuid;
         title = doc.title; 
         description = doc.description; 
         uri = doc.uri;
@@ -187,7 +205,7 @@ contract GeneratorBase is Ownable, ERC721("Generator.pink","GENERATOR") {
         email = doc.email;
         website = doc.website;
         minter = doc.minter;
-
+        ipaddress = doc.ipaddress;
     }
 
     function getTotalDocuments () public view returns (uint256) {
