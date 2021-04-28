@@ -15,39 +15,46 @@ import { useWeb3React } from '@web3-react/core';
 import { useStyles } from './ViewCard.styles';
 
 import useGetAllDocuments from '../../../hooks/useGetAllDocuments';
+import ItemCard from '../itemcard/ItemCard.component';
+import useGetUserDocuments from '../../../hooks/useGetUserDocuments';
+
+const renderCards = (docs) => {
+    const cards = [];
+    console.log(docs[0].id)
+    for(let i = 0; i < docs.length; i++) {
+        cards.push(
+        <Grid item lg={6} key={i}>
+          <ItemCard
+            id={docs[i].id}
+          />
+        </Grid>
+      )
+    }
+  
+    return cards;
+    
+  }
 
 const ViewCard = () => {
     const {account, chainId, library } = useWeb3React();
     const classes = useStyles();
 
-    const docs = useGetAllDocuments([]);
+    const docs = useGetUserDocuments([]);
 
     React.useEffect(()=>{
-        console.log(docs)
 
     }, [docs, chainId, account])
    
 
     return (
-        <MaterialCard className={classes.card}>
-            <Grid 
-                container
-                spacing={3}
-                justify='center'
-            >              
-               <Grid item>
-
-               </Grid>
-               <Grid item xs={3}>
-                   
-               </Grid>
-               <Grid item>
-                   
-               </Grid>
+        <Grid 
+            container
+            spacing={3}
+            justify='center'
+        >  
+            {docs.length > 0 ? renderCards(docs) : ''}
                 
-            </Grid>
-
-        </MaterialCard>
+        </Grid>
     )
 }
 

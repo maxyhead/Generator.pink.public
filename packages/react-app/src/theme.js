@@ -46,7 +46,7 @@ const _theme = createMuiTheme({
         main: "#2C2B2B"
       },
       subcontainer: {
-        main: "#fafafa"
+        light: "#fafafa"
       },
      
       footer: {

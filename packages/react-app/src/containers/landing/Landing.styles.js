@@ -9,6 +9,10 @@ export const useStyles = makeStyles(() => ({
         backgroundColor: theme.palette.background.main,
         minHeight: '85vh'
     },
+    box: {
+      margin: '30px',
+      padding: '10px'
+    },
     hero: {
       padding: '150px',
       minHeight: '50vh'
@@ -34,11 +38,19 @@ export const useStyles = makeStyles(() => ({
       borderBottom: '1px solid #141414'
     },
     title: {
-
+      display: 'flex',
+      justifyContent: 'center'
       //textShadow: `0px 4px 12px ${theme.palette.secondary.main}`
     },
     backgroundVideo: {
       position: 'fixed', zIndex: '-99', width: '100vw', height: '100vh'
     },
+    textcontainer: {
+      height: '100%',
+      margin:'40px',
+      padding:'40px',
+      backgroundColor: theme.palette.subcontainer.light,
+      minHeight:'600px'
+    }
     })
 );

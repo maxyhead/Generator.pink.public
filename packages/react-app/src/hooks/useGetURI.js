@@ -5,7 +5,7 @@ import { getGeneratorContract } from '../utils/contracts';
 
 const useGetURI = (id) => {
     const { account, library, chainId } = useWeb3React()
-    const [ info, setInfo ] = useState(new BigNumber(0))
+    const [ info, setInfo ] = useState('')
 
     const fetchInfo = useCallback(async () => {
         const contract = getGeneratorContract(library, chainId);   

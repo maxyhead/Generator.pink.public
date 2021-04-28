@@ -8,7 +8,7 @@ import { useStyles } from './Home.styles'
 import { useWeb3React } from "@web3-react/core";
 
 import MinterCard from '../../components/cards/mintercard/MinterCard.component'
-import CollectionCard from '../../components/cards/collectioncard/CollectionCard.component';
+import ViewCard from '../../components/cards/viewcard/ViewCard.component';
 
 
 function Home() {
@@ -28,13 +28,14 @@ function Home() {
       className={classes.container}
       alignItems='center'
       justify='center'
+      direction='colum'
     >
       
-      <Grid item lg={6} className={classes.subcontainer}>
+      <Grid item xs={12} className={classes.subcontainer}>
         <MinterCard/>
       </Grid>
-      <Grid item lg className={classes.subcontainer}>
-        <CollectionCard/>
+      <Grid item xs={12} className={classes.subcontainer}>
+        <ViewCard/>
       </Grid>
     </Grid>        
   );

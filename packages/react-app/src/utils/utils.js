@@ -3,6 +3,7 @@ import pinataSDK from '@pinata/sdk';
 import CID from 'cids'
 import axios from 'axios'
 
+const FileType = require('file-type/browser');
 const PINATA_API_KEY= 'b1c5782db19f6b99439b';
 const PINATA_API_SECRET= 'd0a4e88f9630c7ed2526415e229edf108a1e84918f3e7b14d5d9af9c12774744';
 const pinata = pinataSDK(PINATA_API_KEY, PINATA_API_SECRET);
@@ -11,6 +12,13 @@ const ipfsClient = require('ipfs-http-client')
 var uniqid = require('uniqid');
 
 export const MAX_UINT= '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
+
+export const checkFileType = async (url) => {
+    const response = await fetch(url);
+    const fileType = await FileType.fromStream(response.body);
+    return fileType;
+    //=> {ext: 'jpg', mime: 'image/jpeg'}
+}
 
 export const formatter = new Intl.NumberFormat('en-US', 
     // These options are needed to round to whole numbers if that's what you want.

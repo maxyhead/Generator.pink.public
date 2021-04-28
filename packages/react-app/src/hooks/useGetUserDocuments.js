@@ -14,7 +14,7 @@ const useGetUserDocuments = () => {
 
     const fetchInfo = useCallback(async () => {
         const arr = []; 
-        for(let i = 0; i < docs.lenght; i++) {
+        for(let i = 0; i < docs.length; i++) {
             if(docs[i].minter === account) {
                 arr.push(docs[i]);
             }
@@ -24,7 +24,7 @@ const useGetUserDocuments = () => {
 
 
     useEffect(() => {
-        if (account && library && id && docs.lenght > 0) {
+        if (account && library && docs.length > 0) {
             fetchInfo()
         }
        
