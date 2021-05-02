@@ -95,7 +95,7 @@ function Landing( { }) {
               The Service
           </Typography>
         </Grid>
-        <Grid container spacing={1} className={classes.mintercontainer}  >
+        <Grid container spacing={1} className={classes.darkcontainer}  >
           <Grid container spacing={1}>
             <Grid item >
               <Typography variant="h5">
