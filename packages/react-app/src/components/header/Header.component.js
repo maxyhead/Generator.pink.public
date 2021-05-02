@@ -119,15 +119,11 @@ const WalletButton = ({ provider, loadWeb3Modal, logoutOfWeb3Modal }) => {
 
 const Header = ({ nav1, nav2, provider, loadWeb3Modal, logoutOfWeb3Modal}) => {
     const { account } = useWeb3React();
-    const [ connected, setConnected ] = React.useState('contained');
-
     const accountBalance = useBalance();
     const classes = useStyles();
   
     React.useEffect(() => {
-        if(account) {
-           
-        }
+    
     }, [account, accountBalance])
 
     return (
@@ -139,7 +135,7 @@ const Header = ({ nav1, nav2, provider, loadWeb3Modal, logoutOfWeb3Modal}) => {
                     alignItems='center'
                 >
                     <Grid  container item xs justify='center' alignItems='center'>
-                        <Grid item >
+                        <Grid container item xs >
                             <Typography 
                                 component={Link}
                                 to={`/landing`} 
@@ -149,8 +145,6 @@ const Header = ({ nav1, nav2, provider, loadWeb3Modal, logoutOfWeb3Modal}) => {
                             >
                                 Generator 
                             </Typography>
-                        </Grid>
-                        <Grid item >
                             <Typography 
                                 color="primary"
                                 variant="h4" 

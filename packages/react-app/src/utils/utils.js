@@ -60,7 +60,7 @@ export const convertTimestamp = (timestamp) => {
   }
 
   // ie: 2013-02-18, 8:35 AM	
-  time = yyyy + '/' + mm + '/' + dd + ', ' + h + ':' + min + ' ' + ampm;
+  time = yyyy + '/' + mm + '/' + dd ;
 
   return time;
 }

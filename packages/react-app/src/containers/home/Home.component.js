@@ -24,7 +24,7 @@ function Home() {
   return (
     <Grid
       container
-      spacing={1}
+      spacing={2}
       className={classes.container}
       alignItems='center'
       justify='center'

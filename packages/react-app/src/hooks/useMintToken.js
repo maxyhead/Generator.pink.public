@@ -52,15 +52,6 @@ const useMintToken = (
 
     const handleMint = React.useCallback(
       async () => {
-        console.log('fee',fee)
-        console.log('uuid',uuid)
-        console.log('title',title)
-        console.log('description',description)
-        console.log('validationDate',validationDate)
-        console.log('email',email)
-        console.log('website',website)
-        console.log('ipAddress',ipAddress)
-        console.log('uri',uri)
         await addDocument(
             uuid.toString(),
             title.toString(), 

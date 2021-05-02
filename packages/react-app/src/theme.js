@@ -34,19 +34,20 @@ const _theme = createMuiTheme({
       type: 'light',
      
       primary: {
-          main: '#B23591',
+          main: '#FF0A99',
       },
       secondary: {
-        main: "#B23591" ,
+        main: "#119DA4" ,
       },
       background: {
           main: '#fffff',
       },
       header: {
-        main: "#2C2B2B"
+        main: "#fffff"
       },
       subcontainer: {
-        light: "#fafafa"
+        light: "#f2f2f2",
+        dark: "#2C2B2B"
       },
      
       footer: {
@@ -57,7 +58,8 @@ const _theme = createMuiTheme({
       },
       text: {
           primary: "#141414",
-          secondary: "#141414",
+          secondary: "#191919",
+          light: '#fafafa'
       },
   },
 });

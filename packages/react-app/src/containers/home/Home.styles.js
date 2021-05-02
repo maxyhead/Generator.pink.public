@@ -8,7 +8,7 @@ export const useStyles = makeStyles(() => ({
         color: theme.palette.text.primary,
         backgroundColor: theme.palette.background.main,
         minHeight: '85vh',
-        padding:'20px'
+        padding:'50px 150px 50px 150px',
     },
     hero: {
       padding: '50px',

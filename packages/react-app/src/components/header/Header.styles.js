@@ -5,7 +5,7 @@ import {
 
 export const useStyles = makeStyles(() => ({
     header: {
-        paddingTop: '10px',
+        padding: '10px 0px 0px 150px',
         backgroundColor: theme.palette.background.main,
         minHeight:'5vh'
     },

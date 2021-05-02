@@ -171,7 +171,7 @@ const MinterCard = () => {
                                     <Grid item xs>
                                         <Tooltip 
                                             title={ 
-                                                "Fee to be payed in ETH"
+                                                "Fee to be paid in ETH (5 USD) in addition to gas fees."
                                                 }>
                                             <IconButton size='small' >
                                                 <HelpIcon fontSize='small'/>
@@ -217,7 +217,7 @@ const MinterCard = () => {
                     <Grid item xs={12} >
                         <BasicInput
                             type='text'
-                            label='Title'
+                            label='Token Title'
                             onChange={(e)=>{setTitle(e.target.value)}}
                         />
                     </Grid>
@@ -231,14 +231,14 @@ const MinterCard = () => {
                     <Grid item xs={12} >
                         <BasicInput
                             type='text'
-                            label='Email'
+                            label='Contact E-Mail'
                             onChange={(e)=>{setEmail(e.target.value)}}
                         />
                     </Grid>
                     <Grid item xs={12} >
                         <BasicInput
                             type='text'
-                            label='Website'
+                            label='Reference Website'
                             onChange={(e)=>{setSite(e.target.value)}}
                         />
                     </Grid>
@@ -251,7 +251,7 @@ const MinterCard = () => {
                                 format="MM/dd/yyyy"
                                 margin="normal"
                                 id="date-picker-inline"
-                                label="Validity Date"
+                                label="Validity Date of Token"
                                 value={selectedDate}
                                 onChange={handleDateChange}
                                 KeyboardButtonProps={{
@@ -262,7 +262,7 @@ const MinterCard = () => {
                     </Grid>
                     <Grid item xs={12} className={classes.content}>
                         <DropzoneArea
-                            acceptedFiles={['image/png', 'image/jpg', 'image/jpeg', 'image/svg', 'application/pdf']}
+                            acceptedFiles={['image/png', 'image/jpg', 'image/jpeg', 'image/svg', 'application/pdf', 'video/mov']}
                             fileObjects={file ? file : ''}
                             onChange={handleChangeFile}
                             onDelete={handleDelete}
@@ -274,7 +274,7 @@ const MinterCard = () => {
                     </Grid>
                     <Grid container item xs={12} >
                         <Grid item xs={12}>
-                           * Accepted files: .jpg / .jpeg / .png / .pdf 
+                           * Accepted files: .jpg / .jpeg / .png / .pdf / .mov
                        </Grid>
                     </Grid>
                     <Grid item xs={12} >

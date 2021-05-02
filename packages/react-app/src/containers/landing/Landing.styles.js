@@ -10,6 +10,7 @@ export const useStyles = makeStyles(() => ({
         minHeight: '85vh'
     },
     box: {
+      height: '100%',
       margin: '30px',
       padding: '10px'
     },
@@ -27,7 +28,12 @@ export const useStyles = makeStyles(() => ({
       backgroundColor: theme.palette.subcontainer.light,
     },
     mintercontainer: {
-      margin:'80px',
+      margin:'0 0 0 10px',
+    },
+    darkcontainer :{
+      padding:'15px 150px 15px 150px',
+      color: theme.palette.text.light,
+      backgroundColor: theme.palette.subcontainer.dark,
     },
     button: {
         borderRadius: '15px',
@@ -46,7 +52,6 @@ export const useStyles = makeStyles(() => ({
       position: 'fixed', zIndex: '-99', width: '100vw', height: '100vh'
     },
     textcontainer: {
-      height: '100%',
       margin:'40px',
       padding:'40px',
       backgroundColor: theme.palette.subcontainer.light,

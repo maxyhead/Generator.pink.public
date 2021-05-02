@@ -9,7 +9,10 @@ import {
 } from '@material-ui/core'
 
 import {convertTimestamp, checkFileType} from '../../../utils/utils'
-import CircularProgress from '@material-ui/core/CircularProgress';
+
+
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 import MaterialCard from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -63,7 +66,7 @@ const ItemCard = ({id}) => {
                         VALIDATION DATE:
                      </Typography>
                      <Typography variant='body1' color='primary'>
-                       {item ? convertTimestamp(item.validationDate) : ''}
+                       {item ? convertTimestamp(item.validationDate) : <LinearProgress color="primary" />}
                      </Typography>
                  </Grid>            
                  <Grid item xs>
@@ -71,7 +74,7 @@ const ItemCard = ({id}) => {
                         UUID:
                      </Typography>
                      <Typography variant='body1' color='primary'>
-                       {item ? item.uuid : ''}
+                       {item ? item.uuid : <LinearProgress color="primary" />}
                      </Typography>
                  </Grid> 
                  <Grid item xs>
@@ -79,7 +82,7 @@ const ItemCard = ({id}) => {
                         IP:
                      </Typography>
                      <Typography variant='body1' color='primary'>
-                       {item ? item.ipaddress : ''}
+                       {item ? item.ipaddress : <LinearProgress color="primary" />}
                      </Typography>
                  </Grid>   
              
@@ -92,10 +95,7 @@ const ItemCard = ({id}) => {
                      :
                          <img src={uri} className={classes.file}/>
                      }
-                    
-                 
-                    
-                     
+                                     
                  </Grid>   
  
              </Grid> 
@@ -106,7 +106,7 @@ const ItemCard = ({id}) => {
                  </Grid>        
                  <Grid item xs={12}>
                      <Typography variant='body1'>
-                         {item ? item.title : ''}
+                         {item ? item.title : <LinearProgress color="primary" />}
                      </Typography>
                  </Grid>
                  <Grid item xs={12}>
@@ -116,7 +116,7 @@ const ItemCard = ({id}) => {
                  </Grid>    
                  <Grid item xs={12}>
                      <Typography variant='body1'>
-                         {item ? item.description : ''}
+                         {item ? item.description : <LinearProgress color="primary" />}
                      </Typography>
                  </Grid>
                  <Grid item xs={12}>
@@ -126,12 +126,12 @@ const ItemCard = ({id}) => {
                  </Grid>    
                  <Grid item xs={12}>
                      <Typography component={MaterialLink} target='_blank' href={uri ? uri : ''} variant='body1'>
-                         {uri ? uri : ''}
+                         {uri ? (uri.slice(0,64)+'...') : <LinearProgress color="primary" />}
                      </Typography> 
                  </Grid>
             </>
             :
-                <CircularProgress color="primary" />
+                <LinearProgress color="primary" />
             
             }
             

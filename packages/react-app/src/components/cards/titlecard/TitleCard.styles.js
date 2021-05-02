@@ -8,20 +8,16 @@ export const useStyles = makeStyles({
         backgroundColor: theme.palette.paper.main,
         color: theme.palette.text.primary,
         borderRadius : "15px",
-        padding: "10px"
+        padding: "30px"
     },
     content: {
         padding: '50px'
     },
     subheader: {
-        color: theme.palette.text.primary,
         padding: '10px'
     },
     nowrapper: {
         display: 'flex',
         flexWrap: 'nowrap'
     },
-    dropzone:{
-        height: '100px'
-    }
 });

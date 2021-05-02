@@ -8,9 +8,9 @@ import {
     TextField, 
     Switch,
     Avatar, 
+    Link
  } from '@material-ui/core'
 import { useWeb3React } from '@web3-react/core';
-import { Link } from 'react-router-dom'
 import MaterialCard from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -40,23 +40,22 @@ const WalletModal = (props) => {
                         container
                         item 
                         xs={12}
+                        spacing={0}
                         justify='center'
                         alignItems='center'
-                    >
-                        <Typography variant="caption" gutterBottom >
-                            By unlocking Your wallet You agree to our Terms of Service, Privacy and Cookie Policy.
-                        </Typography>
-                    </Grid>
-                    <Grid 
-                        container
-                        item 
-                        xs={12}
-                        justify='center'
-                        alignItems='center'
-                    >
-                        <Typography variant="caption" gutterBottom>
-                            Disclaminer: Wallets are provided by External Providers and by selecting you agree to Terms of those Providers. Your access to the wallet might be reliant on the External Provider being operational.
-                        </Typography>
+                        direction='column'
+                    >   
+                        <Grid item xs>
+                            <Typography variant="h6" >
+                                By unlocking Your wallet, you agree to our
+                            </Typography>   
+                        </Grid>
+                        <Grid item xs>
+                            <Typography variant="body1" component={Link} href='' target='_blank'>
+                                Terms of Service, Privacy and Cookie Policy.
+                            </Typography>    
+                        </Grid>
+                          
                     </Grid>
                     <Grid item xs={12}>
                         <Button
@@ -80,7 +79,20 @@ const WalletModal = (props) => {
                             Go Back
                         </Button>
                     </Grid>
+                    <Grid 
+                        container
+                    
+                        xs={12}
+                        justify='center'
+                        alignItems='center'
+                    >
+                        <Typography variant="caption" gutterBottom>
+                            Disclaminer: Wallets are provided by External Providers and by selecting you agree to Terms of those Providers. Your access to the wallet might be reliant on the External Provider being operational.
+                        </Typography>
+                    </Grid>
                 </Grid>
+                
+            
                 
                  
             </CardContent>

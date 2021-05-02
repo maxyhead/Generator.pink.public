@@ -10,13 +10,14 @@ import {
 import MaterialCard from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { useWeb3React } from '@web3-react/core';
 import { useStyles } from './ViewCard.styles';
 
 import useGetAllDocuments from '../../../hooks/useGetAllDocuments';
 import ItemCard from '../itemcard/ItemCard.component';
 import useGetUserDocuments from '../../../hooks/useGetUserDocuments';
+import TitleCard from '../titlecard/TitleCard.component';
 
 const renderCards = (docs) => {
     const cards = [];
@@ -52,7 +53,10 @@ const ViewCard = () => {
             spacing={3}
             justify='center'
         >  
-            {docs.length > 0 ? renderCards(docs) : ''}
+          <Grid item xs={12}>
+            <TitleCard/>
+          </Grid>
+            {docs.length > 0 ? renderCards(docs) : <CircularProgress />}
                 
         </Grid>
     )
