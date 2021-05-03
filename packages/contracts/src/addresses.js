@@ -3,7 +3,7 @@
 const addresses = {
   // kovan 
   42: { 
-    generator: "0x3fcbbe702C1EA3632326189dC3cc441D4a92b50F" 
+    generator: "0x20816Db25aB176E0468ce7D44c79cF62A023B027" 
   },
   // mainnet
   

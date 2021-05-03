@@ -9,6 +9,8 @@ import { useStyles } from './TitleCard.styles';
 
 const TitleCard = () => {
     const classes = useStyles();
+
+    
     return (
         <MaterialCard className={classes.card}>
             <Grid 

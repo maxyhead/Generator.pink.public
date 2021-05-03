@@ -30,6 +30,8 @@ import { formatter, getUniqueID, unixdate, convertTimestamp } from '../../../uti
 import { useWeb3React } from '@web3-react/core';
 import { useStyles } from './MinterCard.styles';
 
+import BackspaceIcon from '@material-ui/icons/Backspace';
+
 import BasicInput from '../../inputs/BasicInput';
 import useClientIP from '../../../hooks/useClientIp';
 import useUploadFile from '../../../hooks/useUploadFile';
@@ -60,12 +62,25 @@ const MinterCard = () => {
         site, 
         ip 
     );
-
     const { hash, onUpload } = useUploadFile(fileBuffer, title, UUID);
     const reader = new FileReader();
     const fee = useCurrentPrice();
     const userBalance = useBalance();
     const classes = useStyles();
+
+    const onClear = (e) =>{
+        setUUID(getUniqueID())
+        setFile(undefined);
+        setFileBuffer(null);
+        setIpfsHash(undefined);
+        setSelectedDate(new Date());
+        setDescription('');
+        setEmail('');
+        setSite('');
+        setUnixDate(unixdate(new Date()));
+        setTitle('');
+    }
+    
 
     React.useEffect(()=>{
         setUUID(getUniqueID())
@@ -73,7 +88,7 @@ const MinterCard = () => {
             console.log(hash)
             setIpfsHash(hash);
         }
-    }, [account, hash])
+    }, [account])
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
@@ -89,8 +104,13 @@ const MinterCard = () => {
         setFile(undefined);
         setFileBuffer(null)
     };
-    
-  
+
+    const handleMint = (e) => {
+        onMint();
+        onClear();
+    };
+
+
     const handleFile = (file) => {
         if(file !== undefined) {
             reader.readAsArrayBuffer(file);
@@ -110,16 +130,20 @@ const MinterCard = () => {
             >              
                 <Grid item xs={12}>
                     <CardHeader
-                        title={ipfsHash}
                         subheader={
                             <Grid container className={classes.subheader} >
-                                <Grid container item xs={6}  spacing={1}  alignItems='center' justify='flex-start' className={classes.nowrapper} >
-                                    <Grid item xs>
-                                        <Typography variant='h4' color='primary'>
+                                <Grid container item lg={6} alignItems='center' spacing={1}  >
+                                    <Grid item > 
+                                        <Typography variant='h6' color='primary'>
+                                            🆔  
+                                        </Typography> 
+                                    </Grid>
+                                    <Grid item > 
+                                        <Typography variant='h5' color='primary'>
                                             {UUID}
                                         </Typography> 
                                     </Grid>
-                                    <Grid item  xs>
+                                    <Grid item  >
                                         <Tooltip 
                                             title={ 
                                                 "Unique ID number of the document. Please put this somewhere inside your file for verification"
@@ -129,21 +153,20 @@ const MinterCard = () => {
                                             </IconButton>
                                         </Tooltip> 
                                     </Grid>
-                                   
                                 </Grid>
-                                <Grid  container item xs={6} spacing={1} alignItems='center' justify='flex-start' className={classes.nowrapper}>
+                                <Grid  container item lg={6} alignItems='center' spacing={1} >
                                     <Grid item >
-                                        <Typography variant='body1'>
+                                        <Typography variant='h6'>
                                             🌐 
                                         </Typography> 
                                     </Grid>
-                                    <Grid item xs>
-                                        <Typography variant='body1'>
+                                    <Grid item >
+                                        <Typography variant='h6'>
                                             {ip}
                                         </Typography> 
                                         
                                     </Grid>
-                                    <Grid item xs>
+                                    <Grid item >
                                         <Tooltip 
                                             title={ 
                                                 "We use the IP of you computer as a identifier."
@@ -157,18 +180,18 @@ const MinterCard = () => {
                                                                  
                                 </Grid>
                             
-                                <Grid container item  xs={6} spacing={2} direction='row' alignItems='center' justify='flex-start' className={classes.nowrapper}>
+                                <Grid container item lg={6} alignItems='center' spacing={1}>
                                     <Grid item >
-                                        <Typography variant='body1' noWrap>
+                                        <Typography variant='h6' noWrap>
                                             🪙 
                                         </Typography> 
                                     </Grid>
-                                    <Grid item xs>
-                                        <Typography variant='body1' noWrap>
+                                    <Grid item >
+                                        <Typography variant='h6' noWrap>
                                             {fee ? library.utils.fromWei(fee, 'ether') : 'Loading...'}
                                         </Typography> 
                                     </Grid>
-                                    <Grid item xs>
+                                    <Grid item >
                                         <Tooltip 
                                             title={ 
                                                 "Fee to be paid in ETH (5 USD) in addition to gas fees."
@@ -181,18 +204,18 @@ const MinterCard = () => {
                                     
                                           
                                 </Grid>
-                                <Grid container item xs={6} spacing={2}  direction='row' alignItems='center' justify='flex-end' className={classes.nowrapper}>
+                                <Grid container item lg={6} alignItems='center' spacing={1}>
                                     <Grid item >
-                                        <Typography variant='body1' noWrap>
+                                        <Typography variant='h6' noWrap>
                                             🏦
                                         </Typography> 
                                     </Grid>
-                                    <Grid item xs>
-                                        <Typography variant='body1' noWrap>
+                                    <Grid item >
+                                        <Typography variant='h6' noWrap>
                                             {userBalance ? library.utils.fromWei(userBalance, 'ether') : 'Loading...'}
                                         </Typography> 
                                     </Grid>
-                                    <Grid item xs> 
+                                    <Grid item > 
                                         <Tooltip 
                                             title={ 
                                                 "Connected wallet balance"
@@ -206,6 +229,15 @@ const MinterCard = () => {
                             </Grid>
                         
                         }
+                        action={
+                            <Button onClick={onClear} size='medium'>
+                                <Typography variant='subtitle1' >
+                                    CLEAR
+                                </Typography>
+                             
+                                <BackspaceIcon/>
+                            </Button>
+                        }
                        
                     />
                 </Grid>
@@ -218,6 +250,7 @@ const MinterCard = () => {
                         <BasicInput
                             type='text'
                             label='Token Title'
+                            value={title}
                             onChange={(e)=>{setTitle(e.target.value)}}
                         />
                     </Grid>
@@ -225,6 +258,7 @@ const MinterCard = () => {
                         <BasicInput
                             type='text'
                             label='Description'
+                            value={description}
                             onChange={(e)=>{setDescription(e.target.value)}}
                         />
                     </Grid>
@@ -232,6 +266,7 @@ const MinterCard = () => {
                         <BasicInput
                             type='text'
                             label='Contact E-Mail'
+                            value={email}
                             onChange={(e)=>{setEmail(e.target.value)}}
                         />
                     </Grid>
@@ -239,6 +274,7 @@ const MinterCard = () => {
                         <BasicInput
                             type='text'
                             label='Reference Website'
+                            value={site}
                             onChange={(e)=>{setSite(e.target.value)}}
                         />
                     </Grid>
@@ -263,12 +299,14 @@ const MinterCard = () => {
                     <Grid item xs={12} className={classes.content}>
                         <DropzoneArea
                             acceptedFiles={['image/png', 'image/jpg', 'image/jpeg', 'image/svg', 'application/pdf', 'video/mov']}
-                            fileObjects={file ? file : ''}
+                            fileObjects={file !== undefined ? file : ''}
                             onChange={handleChangeFile}
                             onDelete={handleDelete}
                             filesLimit={1}
                             maxFileSize={1048576000}
                             dropzoneText='Drag or Click to upload a file'
+                            clearOnUnmount={true}
+                            
                         />
               
                     </Grid>
@@ -296,7 +334,7 @@ const MinterCard = () => {
                             color='primary'
                             size='large'
                             disabled={ipfsHash != undefined ? false : true}
-                            onClick={onMint}
+                            onClick={handleMint}
                         >
                             Mint Token
                         </Button>

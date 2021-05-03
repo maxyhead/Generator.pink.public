@@ -5,7 +5,7 @@ import { getGeneratorContract } from '../utils/contracts'
 import useCurrentPrice from './useCurrentPrice';
 import { useToasts } from 'react-toast-notifications'
 
-const useMintToken = (
+const useEstimateGas = (
     uuid,
     title, 
     description, 
@@ -16,7 +16,7 @@ const useMintToken = (
     ipAddress
 ) => {
     const { account, library, chainId } = useWeb3React()
-    const fee = useCurrentPrice();
+    const [gas, setGas ] = React.useState();
     const { addToast } = useToasts();
 
     React.useEffect(() => {
@@ -47,23 +47,12 @@ const useMintToken = (
             _email, 
             _website, 
             _ipAddress
-        ).send({from: account, value: fee.toString()}).then(()=> {
-            addToast('Transaction Succes!', {
-                appearance: 'success',
-                autoDismiss: true,
-            })
+        ).estimateGas({from: account, value: fee.toString()}).then((gas)=> {
+           console.log('GAS', gas.toString())
+           setGas(gas)
         }).catch((err) => {
-            if(err.message.includes("User denied transaction signature")) {
-                addToast('Denied Transaction', {
-                    appearance: 'error',
-                    autoDismiss: true,
-                })
-              } else {
-                addToast('Transaction Failed', {
-                    appearance: 'error',
-                    autoDismiss: true,
-                })
-              }
+            
+
         });
     }
 
@@ -86,4 +75,4 @@ const useMintToken = (
     return {  onMint: handleMint }
   }
   
-  export default useMintToken
+  export default useEstimateGas

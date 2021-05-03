@@ -37,7 +37,7 @@ const BasicInput = (props) => {
             size="medium"
             type={props.type}
             label={props.label}
-            defaultValue={props.defaultValue}
+            value={props.value}
             helperText={props.helperText}
             onChange={props.onChange}
         />

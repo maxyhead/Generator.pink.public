@@ -14,8 +14,9 @@ export const useStyles = makeStyles({
         padding: '50px'
     },
     subheader: {
+        padding: '0 50px 0 50px',
         color: theme.palette.text.primary,
-        padding: '10px'
+
     },
     nowrapper: {
         display: 'flex',

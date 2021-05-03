@@ -149,6 +149,24 @@ contract GeneratorBase is Ownable, ERC721("Generator.pink","GENERATOR") {
         return  newid; 
     }
 
+
+    function burnDocument(uint256 tokenId) public {
+        require(_isApprovedOrOwner(_msgSender(), tokenId), "caller is not owner nor approved");
+        Document storage doc = documents[tokenId];
+        doc.uuid = '';
+        doc.title = ''; 
+        doc.description = ''; 
+        doc.uri = '';
+        doc.validationDate = 0;
+        doc.timestamp = 0;
+        doc.title = '';
+        doc.email ='';
+        doc.website ='';
+        doc.minter = 0x0000000000000000000000000000000000000000;
+        doc.ipaddress ='';
+        _burn(tokenId);
+    } 
+
     /** 
      * @dev sets a new reciver for the fee. 
      * @param newReciver .
@@ -234,6 +252,8 @@ contract GeneratorBase is Ownable, ERC721("Generator.pink","GENERATOR") {
     function payReciver() internal {
         feeReciver.transfer(address(this).balance);
     }
+
+    
 
     /* ====== MODIFIERS ====== */
 

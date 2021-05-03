@@ -3,25 +3,53 @@ import { useWeb3React } from '@web3-react/core';
 import { addresses, abis } from "@project/contracts";
 import { ipfs, pinHashtoPinata } from '../utils/utils';
 import CID from 'cids'
-import { useNotification } from '../components/notifications/provider/Provider.component'
+
+import { useToasts } from 'react-toast-notifications'
 
 const useUploadFile = (fileBuffer, documentTitle ,UUID) => {
     const { account, library, chainId } = useWeb3React()
     const [ message, setMessage ] = React.useState();
     const [ hash, setHash ] = React.useState();
+    const { addToast } = useToasts()
 
     const handleUpload = React.useCallback(
       async () => {
+        addToast('Uploading File to IPFS...', {
+            appearance: 'info',
+            autoDismiss: true,
+        })  
         console.log(fileBuffer);
         console.log(documentTitle);
         console.log(UUID);
         const { cid } = await ipfs.add(fileBuffer);
+
+          if(cid !== undefined) {
+            addToast(`Uploaded to IPFS || ${cid}`, {
+                appearance: 'success',
+                autoDismiss: true,
+            })
+          } else {
+            addToast('Failed to Upload to IPFS', {
+              appearance: 'error',
+              autoDismiss: true,
+            })
+          }
+
         const cidv0 = new CID(cid);
         const cidv1 = cidv0.toV1();
-        setHash(cidv1.toBaseEncodedString())  
-        setMessage(`Uploaded to IPFS ${cid} || https://gateway.pinata.cloud/ipfs/${cidv1.toBaseEncodedString()}`);
+        setHash(cidv1.toBaseEncodedString());
+        addToast('Pinning Hash to Pinata...', {
+            appearance: 'info',
+            autoDismiss: true,
+        })  
         await pinHashtoPinata(cid, documentTitle, UUID);
-        console.log('pushed to ipfs');
+
+          addToast(`https://gateway.pinata.cloud/ipfs/${cidv1.toBaseEncodedString()}`, {
+            appearance: 'success',
+            autoDismiss: true,
+          });
+
+        
       },
       [fileBuffer, documentTitle ,UUID],
     )

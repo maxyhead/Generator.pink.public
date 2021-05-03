@@ -114,7 +114,7 @@ const Footer = ({title, nav1, nav2, nav3}) => {
                                 className={classes.title} 
                                 component={MaterialLink}
                                 style={{textDecoration: 'none'}}
-                                href='https://www.linkedin.com/company/odotflights/'
+                                href='https://www.linkedin.com/company/hyperpaper'
                                 target="_blank" 
                                 color="textPrimary"
                                 variant="h5" 
@@ -128,7 +128,7 @@ const Footer = ({title, nav1, nav2, nav3}) => {
                                 className={classes.title} 
                                 component={MaterialLink}
                                 style={{textDecoration: 'none'}}
-                                href='https://twitter.com/odotflights'
+                                href='https://twitter.com/Certyfact'
                                 target="_blank" 
                                 color="textPrimary"
                                 variant="h5" 

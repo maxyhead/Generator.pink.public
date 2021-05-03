@@ -2,10 +2,11 @@ import BigNumber from 'bignumber.js'
 import pinataSDK from '@pinata/sdk';
 import CID from 'cids'
 import axios from 'axios'
+require('dotenv').config();
 
 const FileType = require('file-type/browser');
-const PINATA_API_KEY= 'b1c5782db19f6b99439b';
-const PINATA_API_SECRET= 'd0a4e88f9630c7ed2526415e229edf108a1e84918f3e7b14d5d9af9c12774744';
+const PINATA_API_KEY= process.env.PINATA_API_KEY;
+const PINATA_API_SECRET= process.env.PINATA_API_SECRET;
 const pinata = pinataSDK(PINATA_API_KEY, PINATA_API_SECRET);
 
 const ipfsClient = require('ipfs-http-client')
@@ -67,6 +68,24 @@ export const convertTimestamp = (timestamp) => {
 
 
 export const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' }) // leaving out the arguments will default to these values
+
+
+export const removePinFromIPFS = (hashToUnpin) => {
+    const url = `https://api.pinata.cloud/pinning/unpin/${hashToUnpin}`;
+    return axios
+        .delete(url, {
+            headers: {
+                pinata_api_key: PINATA_API_KEY,
+                pinata_secret_api_key: PINATA_API_SECRET
+            }
+        })
+        .then(function (response) {
+            //handle response here
+        })
+        .catch(function (error) {
+            //handle error here
+        });
+};
 
 export const pinHashtoPinata = (multihash, _name, minterAddress) => {
   const cidv0 = new CID(multihash);

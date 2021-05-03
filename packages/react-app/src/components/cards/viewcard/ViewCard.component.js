@@ -10,7 +10,7 @@ import {
 import MaterialCard from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { useWeb3React } from '@web3-react/core';
 import { useStyles } from './ViewCard.styles';
 
@@ -56,7 +56,7 @@ const ViewCard = () => {
           <Grid item xs={12}>
             <TitleCard/>
           </Grid>
-            {docs.length > 0 ? renderCards(docs) : <CircularProgress />}
+            {docs.length > 0 ? renderCards(docs) : <LinearProgress color='secondary'/>}
                 
         </Grid>
     )

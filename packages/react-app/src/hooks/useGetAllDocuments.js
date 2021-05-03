@@ -13,7 +13,7 @@ const useGetAllDocuments = () => {
     const { account, library, chainId } = useWeb3React()
     const [ info, setInfo ] = useState([])
     const totalDocuments = useTotalDocuments();
-
+    const block = useBlock();
     const fetchInfo = useCallback(async () => {
         const contract = getGeneratorContract(library, chainId);  
         const arr = []; 
@@ -30,7 +30,7 @@ const useGetAllDocuments = () => {
             fetchInfo()
         }
        
-    }, [account, library, totalDocuments, chainId])
+    }, [account, library, totalDocuments, chainId, block])
 
     return info
 }

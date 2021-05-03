@@ -5,7 +5,8 @@ import {
     Button,
     Input, 
     InputLabel,
-    Link as MaterialLink
+    Link as MaterialLink,
+    ButtonGroup
 } from '@material-ui/core'
 
 import {convertTimestamp, checkFileType} from '../../../utils/utils'
@@ -23,12 +24,15 @@ import { useStyles } from './ItemCard.styles';
 import useGetDocument from '../../../hooks/useGetDocument';
 import useGetURI from '../../../hooks/useGetURI';
 
+import useBurn from '../../../hooks/useBurn'
+
+
 const FileType = require('file-type/browser');
 
 const ItemCard = ({id}) => {
     const {account, chainId, library } = useWeb3React();
     const classes = useStyles();
-
+    const { onBurn } = useBurn(id)
     const item = useGetDocument(id);
     const uri = useGetURI(id);
     const [ fileType, setFileType ] = React.useState('');
@@ -60,80 +64,106 @@ const ItemCard = ({id}) => {
             {item ? 
             <>
                 <Grid container item >
+                    <Grid item xs>
+                        <Typography variant='caption'>
+                            CREATED:
+                        </Typography>
+                        <Typography variant='body1' color='primary'>
+                            {item ? convertTimestamp(item.timestamp) : <LinearProgress color="primary" />}
+                        </Typography>
+                    </Grid>
+                    <Grid item xs>
+                        <Typography variant='caption'>
+                            VALIDATION:
+                        </Typography>
+                        <Typography variant='body1' color='primary'>
+                            {item ? convertTimestamp(item.validationDate) : <LinearProgress color="primary" />}
+                        </Typography>
+                    </Grid>            
+                    <Grid item xs>
+                        <Typography variant='caption'>
+                            UUID:
+                        </Typography>
+                        <Typography variant='body1' color='primary'>
+                            {item ? item.uuid : <LinearProgress color="primary" />}
+                        </Typography>
+                    </Grid> 
+                    <Grid item xs>
+                        <Typography variant='caption'>
+                            IP:
+                        </Typography>
+                        <Typography variant='body1' color='primary'>
+                            {item ? item.ipaddress : <LinearProgress color="primary" />}
+                        </Typography>
+                    </Grid>   
+                    
+                </Grid>
+                <Grid container item >
 
-                <Grid item xs>
-                     <Typography variant='caption'>
-                        VALIDATION DATE:
-                     </Typography>
-                     <Typography variant='body1' color='primary'>
-                       {item ? convertTimestamp(item.validationDate) : <LinearProgress color="primary" />}
-                     </Typography>
-                 </Grid>            
-                 <Grid item xs>
-                     <Typography variant='caption'>
-                        UUID:
-                     </Typography>
-                     <Typography variant='body1' color='primary'>
-                       {item ? item.uuid : <LinearProgress color="primary" />}
-                     </Typography>
-                 </Grid> 
-                 <Grid item xs>
-                     <Typography variant='caption'>
-                        IP:
-                     </Typography>
-                     <Typography variant='body1' color='primary'>
-                       {item ? item.ipaddress : <LinearProgress color="primary" />}
-                     </Typography>
-                 </Grid>   
-             
-             </Grid>
-             <Grid container item >
- 
-                 <Grid item xs={12}>
-                     {fileType === 'application/pdf' ? 
-                         <object data={uri} className={classes.pdf} />
-                     :
-                         <img src={uri} className={classes.file}/>
-                     }
-                                     
-                 </Grid>   
- 
-             </Grid> 
-                 <Grid item xs={12}>
-                     <Typography variant='caption'>
+                        <Grid item xs={12}>
+                            {fileType === 'application/pdf' ? 
+                                <object data={uri} className={classes.pdf} />
+                            :
+                                <img src={uri} className={classes.file}/>
+                            }
+                                            
+                        </Grid>   
+
+                </Grid> 
+                <Grid container item>
+                    <Grid item xs={12}>
+                        <Typography variant='caption'>
                         TITLE:
-                     </Typography>
-                 </Grid>        
-                 <Grid item xs={12}>
-                     <Typography variant='body1'>
-                         {item ? item.title : <LinearProgress color="primary" />}
-                     </Typography>
-                 </Grid>
-                 <Grid item xs={12}>
-                     <Typography variant='caption'>
-                       DESCRIPTION: 
-                     </Typography>
-                 </Grid>    
-                 <Grid item xs={12}>
-                     <Typography variant='body1'>
-                         {item ? item.description : <LinearProgress color="primary" />}
-                     </Typography>
-                 </Grid>
-                 <Grid item xs={12}>
-                     <Typography variant='caption'>
-                       LINK:
-                     </Typography>
-                 </Grid>    
-                 <Grid item xs={12}>
-                     <Typography component={MaterialLink} target='_blank' href={uri ? uri : ''} variant='body1'>
-                         {uri ? (uri.slice(0,64)+'...') : <LinearProgress color="primary" />}
-                     </Typography> 
-                 </Grid>
+                        </Typography>
+                    </Grid>        
+                    <Grid item xs={12}>
+                        <Typography variant='body1'>
+                            {item ? item.title : <LinearProgress color="primary" />}
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography variant='caption'>
+                        DESCRIPTION: 
+                        </Typography>
+                    </Grid>    
+                    <Grid item xs={12}>
+                        <Typography variant='body1'>
+                            {item ? item.description : <LinearProgress color="primary" />}
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography variant='caption'>
+                        LINK:
+                        </Typography>
+                    </Grid>    
+                    <Grid item xs={12}>
+                        <Typography component={MaterialLink} target='_blank' href={uri ? uri : ''} variant='body1'>
+                            {uri ? (uri.slice(0,64)+'...') : <LinearProgress color="primary" />}
+                        </Typography> 
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography variant='caption'>
+                        HASH:
+                        </Typography>
+                    </Grid>    
+                    <Grid item xs={12}>
+                        <Typography  variant='body1'>
+                            {item ? item.uri : <LinearProgress color="primary" />}
+                        </Typography> 
+                    </Grid>
+                </Grid>
             </>
             :
                 <LinearProgress color="primary" />
             
             }
+            <Grid container item >
+                <ButtonGroup fullWidth={true}>
+                    <Button> Transfer </Button>
+                    <Button onClick={onBurn}  > Burn </Button>
+                </ButtonGroup>
+
+            </Grid>
             
            
         </Grid>
