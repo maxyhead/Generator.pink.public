@@ -88,7 +88,7 @@ const MinterCard = () => {
             console.log(hash)
             setIpfsHash(hash);
         }
-    }, [account])
+    }, [account, hash])
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
@@ -321,7 +321,7 @@ const MinterCard = () => {
                             fullWidth={true}
                             color='primary'
                             size='large'
-                            disabled={ipfsHash != undefined ? true : false}
+                            disabled={ipfsHash !== undefined ? true : false}
                             onClick={onUpload}
                         >
                             Upload to IPFS
