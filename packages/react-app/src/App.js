@@ -96,6 +96,7 @@ function App() {
                 />
               </Grid>
             </Grid>
+            <script id="CookieDeclaration" src="https://consent.cookiebot.com/9495158d-f8d2-43b2-bfb4-82b5fbe849bf/cd.js" type="text/javascript" async></script>
         </Router>
       </ToastProvider>
     </ThemeProvider>
