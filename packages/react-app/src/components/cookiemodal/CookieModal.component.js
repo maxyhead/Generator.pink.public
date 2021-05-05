@@ -29,16 +29,6 @@ const CookieModal = (props) => {
 
     const classes = useStyles();
 
-    React.useEffect(() => {
-        const script = document.createElement('script');
-        script.src = "https://consent.cookiebot.com/9495158d-f8d2-43b2-bfb4-82b5fbe849bf/cd.js";
-        script.async = true;
-        document.body.appendChild(script);
-        return () => {
-            document.body.removeChild(script); // This will remove the script on unmount
-        }
-    }, []);
-
     return (
         <MaterialCard className={classes.card}>
             <CardContent >
