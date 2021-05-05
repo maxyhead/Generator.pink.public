@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, AppBar, Toolbar, Typography, Modal, Link as MaterialLink} from '@material-ui/core'
+import { Grid, AppBar, Toolbar, Typography, Modal, Button, Link as MaterialLink} from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { useStyles } from './Footer.styles'
 import { useWeb3React } from '@web3-react/core';
@@ -9,11 +9,37 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import FacebookIcon from '@material-ui/icons/Facebook';
 
+import CookieModal from '../cookiemodal/CookieModal.component'
 
 const Footer = ({title, nav1, nav2, nav3}) => {
     const { account } = useWeb3React();
+  
     const classes = useStyles();
     const block = useBlock();
+
+    const [ open, setOpen ] = React.useState(false);
+    const [ isShown, setIsShown ] = React.useState(false);
+
+    function getModalStyle() {
+        const top = 50;
+        const left = 50;
+    
+        return {
+            top: `${top}%`,
+            left: `${left}%`,
+            transform: `translate(-${top}%, -${left}%)`,
+        };
+    }
+
+    const handleOpen = () => {
+        setOpen(true);
+      };
+    
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+
     
     React.useEffect(() => {
        
@@ -61,11 +87,39 @@ const Footer = ({title, nav1, nav2, nav3}) => {
                                 className={classes.title}  
                                 color="textPrimary"
                                 variant="subtitle" 
+                                component={MaterialLink}
+                                style={{textDecoration: 'none'}}
+                                href='https://www.facebook.com/odotflights'
                                 noWrap
                             >
                                 Terms & Privacy 
                             </Typography>
                         </Grid>
+                        <Grid item >
+                            <Typography 
+                                className={classes.title}  
+                                color="textPrimary"
+                                variant="subtitle" 
+                                noWrap
+                            >
+                                |
+                            </Typography>
+                        </Grid>
+
+                        <Grid item >
+                            <Typography 
+                                className={classes.title}  
+                                color="textPrimary"
+                                variant="subtitle" 
+                                component={MaterialLink}
+                                style={{textDecoration: 'none'}}
+                                onClick={handleOpen}
+                                noWrap
+                            >
+                                Cookies 
+                            </Typography>
+                        </Grid>
+  
                         <Grid item >
                             <Typography 
                                 className={classes.title}  
@@ -181,8 +235,20 @@ const Footer = ({title, nav1, nav2, nav3}) => {
                     </Grid>
                     
                 </Grid>
-             
                 </Grid>
+                <Modal
+                    style={getModalStyle()}
+                    className={classes.modal}
+                    open={open}
+                    onClose={handleClose}
+                    closeAfterTransition
+                >
+                    <>
+                        <CookieModal
+                            handleClose={handleClose}
+                        />
+                    </>
+                </Modal> 
             </Toolbar>
         </AppBar>  
     )

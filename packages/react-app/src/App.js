@@ -19,7 +19,8 @@ import {
   Typography,
   Paper,
   AppBar,
-  Toolbar
+  Toolbar,
+  Modal
 } from '@material-ui/core'
 
 import { useWeb3React } from "@web3-react/core";
@@ -31,6 +32,7 @@ import Footer from './components/footer/Footer.component';
 import Home from './containers/home/Home.component';
 import Landing from './containers/landing/Landing.component';
 
+import CookieModal from './components/cookiemodal/CookieModal.component';
 import { ToastProvider } from 'react-toast-notifications';
 
 function App() {
@@ -38,6 +40,9 @@ function App() {
   const { account, library, chainId } = useWeb3React();
   const [ chainID, setChainID ] = React.useState();
   const [ provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
+
+  const [ open, setOpen ] = React.useState(false);
+  const [ isShown, setIsShown ] = React.useState(false)
   
   const useStyles = makeStyles((_theme) => ({
       container: {
@@ -49,10 +54,38 @@ function App() {
       },
       footer: {
         zIndex: 0
-      }
+      },
+      modal: {
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'fixed'
+      },
+   
     })
   );
   const classes = useStyles();
+
+  function getModalStyle() {
+        const top = 50;
+        const left = 50;
+    
+        return {
+            top: `${top}%`,
+            left: `${left}%`,
+            transform: `translate(-${top}%, -${left}%)`,
+        };
+    };
+    
+    const handleOpen = () => {
+        setOpen(true);
+      };
+    
+    const handleClose = () => {
+        setOpen(false);
+    };
 
   return (
     <ThemeProvider theme={theme}>
@@ -82,9 +115,12 @@ function App() {
                     <Route path="/" exact component={Home}/>
                     <Route path="/landing" exact component={Landing}/>
                     <Route path="/create" exact component={Home}/>
+                    
                   </Switch>
                 :
-                  <Landing/>
+                   <Switch>
+                    <Route path="/" exact component={Landing}/>
+                  </Switch>
                 }
               </Grid>
               <Grid item xs={12}>
@@ -96,7 +132,6 @@ function App() {
                 />
               </Grid>
             </Grid>
-            <script id="CookieDeclaration" src="https://consent.cookiebot.com/9495158d-f8d2-43b2-bfb4-82b5fbe849bf/cd.js" type="text/javascript" async></script>
         </Router>
       </ToastProvider>
     </ThemeProvider>
