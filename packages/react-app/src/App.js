@@ -32,6 +32,7 @@ import Footer from './components/footer/Footer.component';
 import Home from './containers/home/Home.component';
 import Landing from './containers/landing/Landing.component';
 
+import {Helmet} from "react-helmet";
 import CookieModal from './components/cookiemodal/CookieModal.component';
 import { ToastProvider } from 'react-toast-notifications';
 
@@ -43,6 +44,8 @@ function App() {
 
   const [ open, setOpen ] = React.useState(false);
   const [ isShown, setIsShown ] = React.useState(false)
+
+  const [hasCookieBot, setHasCookieBot] = React.useState(undefined);
   
   const useStyles = makeStyles((_theme) => ({
       container: {
@@ -132,6 +135,10 @@ function App() {
                 />
               </Grid>
             </Grid>
+            <Helmet>
+                <script id="CookieDeclaration" src="https://consent.cookiebot.com/9495158d-f8d2-43b2-bfb4-82b5fbe849bf/cd.js" type="text/javascript" async></script>
+            </Helmet>
+            
         </Router>
       </ToastProvider>
     </ThemeProvider>
