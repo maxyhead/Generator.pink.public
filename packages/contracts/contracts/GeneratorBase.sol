@@ -167,6 +167,7 @@ contract GeneratorBase is Ownable, ERC721("Generator.pink","GENERATOR") {
         _burn(tokenId);
     } 
 
+
     /** 
      * @dev sets a new reciver for the fee. 
      * @param newReciver .
