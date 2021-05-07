@@ -29,5 +29,14 @@ export const useStyles = makeStyles({
         height: '400px',
         width:'100%',
         objectFit: 'contain' 
-    }
+    },
+    modal: {
+        zIndex: '1',
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'fixed'
+    },
 });

@@ -29,7 +29,7 @@ import AccountBalanceWalletRounded from '@material-ui/icons/AccountBalanceWallet
 import { formatter, getUniqueID, unixdate, convertTimestamp } from '../../../utils/utils'
 import { useWeb3React } from '@web3-react/core';
 import { useStyles } from './MinterCard.styles';
-
+import { AttachFile, Description, PictureAsPdf, Theaters } from '@material-ui/icons';
 import BackspaceIcon from '@material-ui/icons/Backspace';
 
 import BasicInput from '../../inputs/BasicInput';
@@ -38,18 +38,24 @@ import useUploadFile from '../../../hooks/useUploadFile';
 import useCurrentPrice from '../../../hooks/useCurrentPrice';
 import useBalance from '../../../hooks/useBalance';
 import useMintToken from '../../../hooks/useMintToken';
+import useGetHash from '../../../hooks/useGetHash';
+
+const FileType = require('file-type/browser');
 
 const MinterCard = () => {
     const {account, chainId, library } = useWeb3React();
     const ip = useClientIP();
+    const [ previeuwURL, setPrevieuwURL] = React.useState('');
     const [ UUID, setUUID ] = React.useState('');
     const [ title, setTitle] = React.useState('');
     const [ selectedDate, setSelectedDate] = React.useState(new Date());
     const [ selectedUnixDate, setUnixDate ] = React.useState(unixdate(new Date()));
     const [ description, setDescription] = React.useState('');
+    const [ name, setName ] = React.useState('');
+    const [ fullAddress, setFullAddress ] = React.useState('');
     const [ email, setEmail ] = React.useState('');
     const [ site, setSite ] = React.useState('');
-    const [ file, setFile ] = React.useState({});
+    const [ file, setFile ] = React.useState();
     const [ fileBuffer, setFileBuffer ] = React.useState();
     const [ ipfsHash, setIpfsHash ] = React.useState();
     const { onMint } = useMintToken(
@@ -58,6 +64,8 @@ const MinterCard = () => {
         description, 
         ipfsHash,
         selectedUnixDate, 
+        name, 
+        fullAddress,
         email,
         site, 
         ip 
@@ -67,29 +75,24 @@ const MinterCard = () => {
     const fee = useCurrentPrice();
     const userBalance = useBalance();
     const classes = useStyles();
+    const previeuwHash = useGetHash(fileBuffer)
+    const [ fileType, setFileType ] = React.useState();
 
     const onClear = (e) =>{
         setUUID(getUniqueID())
-        setFile(undefined);
-        setFileBuffer(null);
-        setIpfsHash(undefined);
+        handleDelete()
         setSelectedDate(new Date());
-        setDescription('');
-        setEmail('');
-        setSite('');
+        setDescription(undefined);
+        setEmail(undefined);
+        setSite(undefined);
         setUnixDate(unixdate(new Date()));
-        setTitle('');
+        setTitle(undefined);
+        setFileType(undefined);
+        setFullAddress(undefined);
+        setName(undefined);
+        
     }
     
-
-    React.useEffect(()=>{
-        setUUID(getUniqueID())
-        if(hash) {
-            console.log(hash)
-            setIpfsHash(hash);
-        }
-    }, [account, hash])
-
     const handleDateChange = (date) => {
         setSelectedDate(date);
         setUnixDate(unixdate(date))
@@ -102,7 +105,9 @@ const MinterCard = () => {
     
      const handleDelete = deleted => {
         setFile(undefined);
-        setFileBuffer(null)
+        setFileBuffer(null);
+        setIpfsHash(undefined);
+        setPrevieuwURL('');
     };
 
     const handleMint = (e) => {
@@ -120,7 +125,28 @@ const MinterCard = () => {
             }
         }
     };
+    
+    React.useEffect(()=>{
+        if(file !== undefined) {
+            const objectURL = URL.createObjectURL(file);
+            setPrevieuwURL(objectURL);
+            (async () => {
+                const response = await fetch(objectURL);
+                const type = await FileType.fromStream(response.body);
+                setFileType(type ? type.mime : '');
+                console.log(type ? type.mime : '');
+                //=> {ext: 'jpg', mime: 'image/jpeg'}
+            })();
+        }
+       
+        setUUID(getUniqueID())
+        if(hash) {
+            console.log(hash)
+            setIpfsHash(hash);
+        }
+    }, [account, hash, file, fileBuffer])
 
+  
     return (
         <MaterialCard className={classes.card}>
             <Grid 
@@ -130,6 +156,10 @@ const MinterCard = () => {
             >              
                 <Grid item xs={12}>
                     <CardHeader
+                        title={
+                        <Typography variant='h6' color='textPrimary' className={classes.subheader}>
+                            HASH FROM FILE: {file ? previeuwHash : ''}   
+                        </Typography>}
                         subheader={
                             <Grid container className={classes.subheader} >
                                 <Grid container item lg={6} alignItems='center' spacing={1}  >
@@ -232,7 +262,7 @@ const MinterCard = () => {
                         action={
                             <Button onClick={onClear} size='medium'>
                                 <Typography variant='subtitle1' >
-                                    CLEAR
+                                    CLEAR &nbsp;
                                 </Typography>
                              
                                 <BackspaceIcon/>
@@ -260,6 +290,22 @@ const MinterCard = () => {
                             label='Description'
                             value={description}
                             onChange={(e)=>{setDescription(e.target.value)}}
+                        />
+                    </Grid>
+                    <Grid item xs={12} >
+                        <BasicInput
+                            type='text'
+                            label='Name'
+                            value={name}
+                            onChange={(e)=>{setName(e.target.value)}}
+                        />
+                    </Grid>
+                    <Grid item xs={12} >
+                        <BasicInput
+                            type='text'
+                            label='Address'
+                            value={fullAddress}
+                            onChange={(e)=>{setFullAddress(e.target.value)}}
                         />
                     </Grid>
                     <Grid item xs={12} >
@@ -296,19 +342,29 @@ const MinterCard = () => {
                             />
                         </MuiPickersUtilsProvider>
                     </Grid>
+                    <Grid container item xs={12} className={classes.preview} >
+                        <Grid item xs={12}>
+                            {fileType === 'application/pdf' ? 
+                                <object data={previeuwURL} className={classes.preview} />
+                            :
+                                <img src={previeuwURL} className={classes.preview}/>
+                            }
+                       </Grid>
+                    </Grid>
                     <Grid item xs={12} className={classes.content}>
                         <DropzoneArea
                             acceptedFiles={['image/png', 'image/jpg', 'image/jpeg', 'image/svg', 'application/pdf', 'video/mov']}
-                            fileObjects={file !== undefined ? file : ''}
+                            showPreviews={false}
+                            showPreviewsInDropzone={false}
+                            useChipsForPreview
+                            previewGridProps={{container: { spacing: 1, direction: 'row' }}}
+                            previewChipProps={{classes: { root: classes.previewChip } }}
+                            previewText="Selected files"
                             onChange={handleChangeFile}
                             onDelete={handleDelete}
-                            filesLimit={1}
                             maxFileSize={1048576000}
-                            dropzoneText='Drag or Click to upload a file'
-                            clearOnUnmount={true}
-                            
-                        />
-              
+                            filesLimit={1}
+                        />              
                     </Grid>
                     <Grid container item xs={12} >
                         <Grid item xs={12}>

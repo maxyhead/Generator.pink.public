@@ -6,7 +6,9 @@ import {
     Input, 
     InputLabel,
     Link as MaterialLink,
-    ButtonGroup
+    ButtonGroup,
+    Modal,
+    TextField
 } from '@material-ui/core'
 
 import {convertTimestamp, checkFileType} from '../../../utils/utils'
@@ -25,17 +27,47 @@ import useGetDocument from '../../../hooks/useGetDocument';
 import useGetURI from '../../../hooks/useGetURI';
 
 import useBurn from '../../../hooks/useBurn'
-
+import useTransfer from '../../../hooks/useTransfer'
 
 const FileType = require('file-type/browser');
 
+
+
 const ItemCard = ({id}) => {
     const {account, chainId, library } = useWeb3React();
-    const classes = useStyles();
-    const { onBurn } = useBurn(id)
+
     const item = useGetDocument(id);
     const uri = useGetURI(id);
     const [ fileType, setFileType ] = React.useState('');
+    const [ reciverer, setReciver ] = React.useState('');
+    const { onTransfer } = useTransfer(id, reciverer);
+    const [ open, setOpen ] = React.useState(false);
+    const [ isShown, setIsShown ] = React.useState(false);
+    const { onBurn } = useBurn(id, item.uri);
+    const classes = useStyles();
+
+
+    function getModalStyle() {
+        const top = 50;
+        const left = 50;
+    
+        return {
+            top: `${top}%`,
+            left: `${left}%`,
+            transform: `translate(-${top}%, -${left}%)`,
+        };
+    }
+
+    const handleOpen = () => {
+        setOpen(true);
+      };
+    
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    
+
 
     React.useEffect(()=>{
 
@@ -159,14 +191,28 @@ const ItemCard = ({id}) => {
             }
             <Grid container item >
                 <ButtonGroup fullWidth={true}>
-                    <Button> Transfer </Button>
+                    <Button onClick={handleOpen}> Transfer </Button>
                     <Button onClick={onBurn}  > Burn </Button>
                 </ButtonGroup>
-
             </Grid>
-            
-           
         </Grid>
+        <Modal
+            style={getModalStyle()}
+            className={classes.modal}
+            open={open}
+            onClose={handleClose}
+        >
+            <MaterialCard className={classes.card}>
+                <TextField
+                    size='small'
+                    onChange={(e)=>{setReciver(e.target.value)}}
+                    variant='outlined'
+                    type='text'
+                    helperText='Reciever Address'
+                />
+                <Button size='medium' onClick={onTransfer} >SEND</Button>
+            </MaterialCard>
+        </Modal> 
         </MaterialCard>
     )
 }

@@ -11,6 +11,8 @@ const useMintToken = (
     description, 
     uri, 
     validationDate, 
+    name,
+    fullAddress,
     email, 
     website, 
     ipAddress
@@ -19,9 +21,6 @@ const useMintToken = (
     const fee = useCurrentPrice();
     const { addToast } = useToasts();
 
-    React.useEffect(() => {
-       
-    }, [])
 
     const addDocument = async (
         _uuid,
@@ -29,6 +28,8 @@ const useMintToken = (
         _description, 
         _uri, 
         _validationDate, 
+        _name,
+        _fulladdress,
         _email, 
         _website, 
         _ipAddress
@@ -44,6 +45,8 @@ const useMintToken = (
             _description, 
             _uri, 
             _validationDate, 
+            _name,
+            _fulladdress,
             _email, 
             _website, 
             _ipAddress
@@ -75,12 +78,14 @@ const useMintToken = (
             description.toString(), 
             uri.toString(), 
             validationDate.toString(), 
+            name.toString(),
+            fullAddress.toString(),
             email.toString(), 
             website.toString(), 
             ipAddress.toString()
         )
       },
-      [account, title, description, uri, validationDate, email, website, ipAddress],
+      [account, title, description, uri, validationDate, email, name, fullAddress, website, ipAddress],
     )
   
     return {  onMint: handleMint }

@@ -57,6 +57,10 @@ contract GeneratorBase is Ownable, ERC721("Generator.pink","GENERATOR") {
         // Mint timestamp.
         uint timestamp; 
 
+        string  name;
+
+        string  fulladdress;
+
         string email; 
 
         string website; 
@@ -104,18 +108,17 @@ contract GeneratorBase is Ownable, ERC721("Generator.pink","GENERATOR") {
         string memory _description, 
         string memory _uri, 
         uint256 _validationDate,
+        string memory _name, 
+        string memory _fulladdress,
         string memory _email, 
         string memory _website,
         string memory _ipaddress
     ) public payable returns(uint256) {
         // handle the payment for the minting proccess.
 
-            // save the current price 
-            uint256 amountToPay = get_FEE_IN_ETH();
-            uint256 amountPayed = msg.value;
-
-            // require that the caller has send enough to the contract
-            require(amountPayed >= amountToPay, 'msg.sender did not pay enough');
+           
+        // require that the caller has send enough to the contract
+        require(msg.value >= get_FEE_IN_ETH(), 'msg.sender did not pay enough');
 
 
         // handle the minting of the new token.
@@ -131,6 +134,8 @@ contract GeneratorBase is Ownable, ERC721("Generator.pink","GENERATOR") {
             uri: _uri,
             validationDate: _validationDate,
             timestamp: block.timestamp,
+            name: _name,
+            fulladdress: _fulladdress,
             email: _email,
             website: _website,
             minter: msg.sender,
@@ -161,6 +166,8 @@ contract GeneratorBase is Ownable, ERC721("Generator.pink","GENERATOR") {
         doc.timestamp = 0;
         doc.title = '';
         doc.email ='';
+        doc.name = '';
+        doc.fulladdress = '';
         doc.website ='';
         doc.minter = 0x0000000000000000000000000000000000000000;
         doc.ipaddress ='';
@@ -206,6 +213,8 @@ contract GeneratorBase is Ownable, ERC721("Generator.pink","GENERATOR") {
             string memory uri, 
             uint256 validationDate,
             uint256 timestamp, 
+            string memory name,
+            string memory fulladdress,
             string memory email, 
             string memory website,
             address minter,
@@ -221,6 +230,8 @@ contract GeneratorBase is Ownable, ERC721("Generator.pink","GENERATOR") {
         validationDate = doc.validationDate;
         timestamp = doc.timestamp;
         title = doc.title;
+        name = doc.name;
+        fulladdress = doc.fulladdress;
         email = doc.email;
         website = doc.website;
         minter = doc.minter;

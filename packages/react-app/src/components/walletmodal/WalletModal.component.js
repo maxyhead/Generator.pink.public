@@ -81,8 +81,8 @@ const WalletModal = (props) => {
                     </Grid>
                     <Grid 
                         container
-                    
-                        xs={12}
+
+                        
                         justify='center'
                         alignItems='center'
                     >

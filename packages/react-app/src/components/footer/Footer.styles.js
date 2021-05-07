@@ -5,6 +5,7 @@ import {
 
 export const useStyles = makeStyles(() => ({
     footer: {
+        zIndex: '0',
         backgroundColor: theme.palette.footer.main,
         borderTop: `3px solid ${theme.palette.primary.main}`,
         minHeight:'16vh'

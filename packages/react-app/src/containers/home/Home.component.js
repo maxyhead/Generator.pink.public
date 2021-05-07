@@ -9,15 +9,20 @@ import { useWeb3React } from "@web3-react/core";
 
 import MinterCard from '../../components/cards/mintercard/MinterCard.component'
 import ViewCard from '../../components/cards/viewcard/ViewCard.component';
-
+import { useToasts } from 'react-toast-notifications'
 
 function Home() {
   const {account, chainId, library } = useWeb3React();
-
+  const { addToast } = useToasts();
   const classes = useStyles();
 
   React.useEffect(() => {
- 
+    if(chainId !== 42) {
+      addToast('Please connect to the KOVAN TESTNET', {
+        appearance: 'info',
+        autoDismiss: true,
+    })
+    }
   
   }, [account, chainId]);
 
@@ -28,15 +33,21 @@ function Home() {
       className={classes.container}
       alignItems='center'
       justify='center'
-      direction='colum'
+      direction='column'
     >
+      {chainId == 42 ?
+      <>
+        <Grid item xs={12} className={classes.subcontainer}>
+          <MinterCard/>
+        </Grid>
+        <Grid item xs={12} className={classes.subcontainer}>
+          <ViewCard/>
+        </Grid>
+      </>
+      :
+        <></>
+      }
       
-      <Grid item xs={12} className={classes.subcontainer}>
-        <MinterCard/>
-      </Grid>
-      <Grid item xs={12} className={classes.subcontainer}>
-        <ViewCard/>
-      </Grid>
     </Grid>        
   );
 }

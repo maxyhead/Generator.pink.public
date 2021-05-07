@@ -24,5 +24,10 @@ export const useStyles = makeStyles({
     },
     dropzone:{
         height: '100px'
-    }
+    },
+    preview: {
+        maxHeight: '400px',
+        width:'100%',
+        objectFit: 'contain'
+    },
 });

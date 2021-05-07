@@ -32,9 +32,9 @@ import Footer from './components/footer/Footer.component';
 import Home from './containers/home/Home.component';
 import Landing from './containers/landing/Landing.component';
 
-import {Helmet} from "react-helmet";
-import CookieModal from './components/cookiemodal/CookieModal.component';
-import { ToastProvider } from 'react-toast-notifications';
+import { ToastProvider, DefaultToast } from 'react-toast-notifications';
+
+
 
 function App() {
   const [ darkMode, setDarkmode ] = React.useState(true)
@@ -42,10 +42,6 @@ function App() {
   const [ chainID, setChainID ] = React.useState();
   const [ provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
 
-  const [ open, setOpen ] = React.useState(false);
-  const [ isShown, setIsShown ] = React.useState(false)
-
-  const [hasCookieBot, setHasCookieBot] = React.useState(undefined);
   
   const useStyles = makeStyles((_theme) => ({
       container: {
@@ -53,10 +49,10 @@ function App() {
         backgroundColor: darkMode ? theme.palette.background.dark : theme.palette.background.light,
       },
       header: {
-        zIndex: 0
+        zIndex: '0'
       },
       footer: {
-        zIndex: 0
+        zIndex: '0'
       },
       modal: {
         width: '100vw',
@@ -70,32 +66,15 @@ function App() {
     })
   );
   const classes = useStyles();
-
-  function getModalStyle() {
-        const top = 50;
-        const left = 50;
     
-        return {
-            top: `${top}%`,
-            left: `${left}%`,
-            transform: `translate(-${top}%, -${left}%)`,
-        };
-    };
-    
-    const handleOpen = () => {
-        setOpen(true);
-      };
-    
-    const handleClose = () => {
-        setOpen(false);
-    };
-
+ 
   return (
     <ThemeProvider theme={theme}>
       <ToastProvider  
         autoDismiss
         autoDismissTimeout={6000}
-        placement="bottom-center"
+        placement="bottom-right"
+
       > 
         <Router>
             <Grid 
@@ -115,10 +94,8 @@ function App() {
               <Grid item xs={12}>
                 { account ? 
                   <Switch>
-                    <Route path="/" exact component={Home}/>
-                    <Route path="/landing" exact component={Landing}/>
+                    <Route path="/" exact component={Landing}/>
                     <Route path="/create" exact component={Home}/>
-                    
                   </Switch>
                 :
                    <Switch>
@@ -126,19 +103,16 @@ function App() {
                   </Switch>
                 }
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} className={classes.footer}>
                 <Footer
                   nav1='create'
                   nav2='about'
                   nav3='nav3'
-                  className={classes.footer}
+                  
                 />
               </Grid>
             </Grid>
-            <Helmet>
-                <script id="CookieDeclaration" src="https://consent.cookiebot.com/9495158d-f8d2-43b2-bfb4-82b5fbe849bf/cd.js" type="text/javascript" async></script>
-            </Helmet>
-            
+           
         </Router>
       </ToastProvider>
     </ThemeProvider>

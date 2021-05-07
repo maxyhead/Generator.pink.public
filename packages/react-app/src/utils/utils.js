@@ -5,9 +5,9 @@ import axios from 'axios'
 require('dotenv').config();
 
 const FileType = require('file-type/browser');
-const PINATA_API_KEY= process.env.PINATA_API_KEY;
-const PINATA_API_SECRET= process.env.PINATA_API_SECRET;
-const pinata = pinataSDK(PINATA_API_KEY, PINATA_API_SECRET);
+
+
+const pinata = pinataSDK(process.env.REACT_APP_PINATA_API_KEY, process.env.REACT_APP_PINATA_API_SECRET);
 
 const ipfsClient = require('ipfs-http-client')
 var uniqid = require('uniqid');
@@ -71,18 +71,24 @@ export const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: '
 
 
 export const removePinFromIPFS = (hashToUnpin) => {
-    const url = `https://api.pinata.cloud/pinning/unpin/${hashToUnpin}`;
+    const cidv0 = new CID(hashToUnpin);
+    const cidv1 = cidv0.toV1();  
+    const url = `https://api.pinata.cloud/pinning/unpin/${cidv1.toBaseEncodedString()}`;
     return axios
         .delete(url, {
             headers: {
-                pinata_api_key: PINATA_API_KEY,
-                pinata_secret_api_key: PINATA_API_SECRET
+                pinata_api_key: "b1c5782db19f6b99439b",
+                pinata_secret_api_key: "d0a4e88f9630c7ed2526415e229edf108a1e84918f3e7b14d5d9af9c12774744"
             }
         })
         .then(function (response) {
             //handle response here
+            console.log('response');
+            console.log(response);
         })
         .catch(function (error) {
+            console.log('error');
+            console.log(error);
             //handle error here
         });
 };
@@ -108,8 +114,8 @@ export const pinHashtoPinata = (multihash, _name, minterAddress) => {
   
   axios.post(url, body, {
           headers: {
-              pinata_api_key: PINATA_API_KEY,
-              pinata_secret_api_key: PINATA_API_SECRET
+              pinata_api_key: "b1c5782db19f6b99439b",
+              pinata_secret_api_key: "d0a4e88f9630c7ed2526415e229edf108a1e84918f3e7b14d5d9af9c12774744"
           }
       }).then(function (response) {
           //handle response here
@@ -129,7 +135,7 @@ export const checkPinataConnection = async () =>{
       console.log(result);
       return result; 
   }).catch((err) => {
-      
+    console.log(err);
   });
 }
 const blocksPerYear = new BigNumber(10518975); 

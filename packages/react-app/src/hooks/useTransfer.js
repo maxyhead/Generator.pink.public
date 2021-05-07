@@ -19,11 +19,11 @@ const useTransfer = (id, receiver) => {
                 autoDismiss: true,
             })
         const contract = getGeneratorContract(library, chainId);
-        await contract.methods.safeTransferFrom(
+        await contract.methods.transferFrom(
             account, 
             _receiver, 
             _id
-        ).send({from: account, value: fee.toString()}).then(()=> {
+        ).send({from: account}).then(()=> {
             addToast('Transaction Succes!', {
                 appearance: 'success',
                 autoDismiss: true,
@@ -46,8 +46,8 @@ const useTransfer = (id, receiver) => {
     const handleTransfer = React.useCallback(
       async () => {
         await transfer(
-            id, 
-            receiver
+            receiver, 
+            id
         )
       },
       [account, id, receiver],

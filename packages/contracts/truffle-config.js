@@ -46,39 +46,7 @@ module.exports = {
       gasPrice: 25000000000,
       network_id: 42
     },
-    ropsten: {
-      provider: function() {
-        return new HDWalletProvider(
-          privateKeys.split(','), // Array of account private keys
-          `wss://ropsten.infura.io/ws/v3/${process.env.INFURA_API_KEY}`// Url to an Ethereum Node
-        )
-      },
-      gas: 8000000,
-      gasPrice: 35000000000,
-      network_id: 3
-    },
-    rinkeby: {
-      provider: function() {
-        return new HDWalletProvider(
-          privateKeys.split(','), // Array of account private keys
-          `wss://rinkeby.infura.io/ws/v3/${process.env.INFURA_API_KEY}`// Url to an Ethereum Node
-        )
-      },
-      gas: 8000000,
-      gasPrice: 35000000000,
-      network_id: 4
-    },
-    goerli: {
-      provider: function() {
-        return new HDWalletProvider(
-          privateKeys.split(','), // Array of account private keys
-          `wss://goerli.infura.io/ws/v3/${process.env.INFURA_API_KEY}`// Url to an Ethereum Node
-        )
-      },
-      gas: 8000000,
-      gasPrice: 35000000000,
-      network_id: 5
-    },
+    
   },
   
   plugins: [
@@ -95,7 +63,7 @@ module.exports = {
       settings: {          // See the solidity docs for advice about optimization and evmVersion
         optimizer: {
         enabled: true,
-        runs: 100
+        runs: 200
         },
       }//  evmVersion: "byzantium"
     }

@@ -138,7 +138,7 @@ const Header = ({ nav1, nav2, provider, loadWeb3Modal, logoutOfWeb3Modal}) => {
                         <Grid container item xs >
                             <Typography 
                                 component={Link}
-                                to={`/landing`} 
+                                to={`/`} 
                                 color="textPrimary"
                                 variant="h4" 
                                 noWrap

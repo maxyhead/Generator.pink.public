@@ -7,39 +7,13 @@ import useBlock from '../../hooks/useBlock';
 
 import TwitterIcon from '@material-ui/icons/Twitter';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import FacebookIcon from '@material-ui/icons/Facebook';
 
-import CookieModal from '../cookiemodal/CookieModal.component'
 
 const Footer = ({title, nav1, nav2, nav3}) => {
     const { account } = useWeb3React();
   
     const classes = useStyles();
     const block = useBlock();
-
-    const [ open, setOpen ] = React.useState(false);
-    const [ isShown, setIsShown ] = React.useState(false);
-
-    function getModalStyle() {
-        const top = 50;
-        const left = 50;
-    
-        return {
-            top: `${top}%`,
-            left: `${left}%`,
-            transform: `translate(-${top}%, -${left}%)`,
-        };
-    }
-
-    const handleOpen = () => {
-        setOpen(true);
-      };
-    
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-
     
     React.useEffect(() => {
        
@@ -66,7 +40,7 @@ const Footer = ({title, nav1, nav2, nav3}) => {
                             <Typography 
                                 className={classes.title}  
                                 color="textPrimary"
-                                variant="subtitle" 
+                                variant="subtitle1" 
                                 noWrap
                             >
                                 Imprint
@@ -76,7 +50,7 @@ const Footer = ({title, nav1, nav2, nav3}) => {
                             <Typography 
                                 className={classes.title}  
                                 color="textPrimary"
-                                variant="subtitle" 
+                                variant="subtitle1" 
                                 noWrap
                             >
                                 |
@@ -86,7 +60,7 @@ const Footer = ({title, nav1, nav2, nav3}) => {
                             <Typography 
                                 className={classes.title}  
                                 color="textPrimary"
-                                variant="subtitle" 
+                                variant="subtitle1" 
                                 component={MaterialLink}
                                 style={{textDecoration: 'none'}}
                                 href='https://www.facebook.com/odotflights'
@@ -99,24 +73,10 @@ const Footer = ({title, nav1, nav2, nav3}) => {
                             <Typography 
                                 className={classes.title}  
                                 color="textPrimary"
-                                variant="subtitle" 
+                                variant="subtitle1" 
                                 noWrap
                             >
                                 |
-                            </Typography>
-                        </Grid>
-
-                        <Grid item >
-                            <Typography 
-                                className={classes.title}  
-                                color="textPrimary"
-                                variant="subtitle" 
-                                component={MaterialLink}
-                                style={{textDecoration: 'none'}}
-                                onClick={handleOpen}
-                                noWrap
-                            >
-                                Cookies 
                             </Typography>
                         </Grid>
   
@@ -124,17 +84,7 @@ const Footer = ({title, nav1, nav2, nav3}) => {
                             <Typography 
                                 className={classes.title}  
                                 color="textPrimary"
-                                variant="subtitle" 
-                                noWrap
-                            >
-                                |
-                            </Typography>
-                        </Grid>
-                        <Grid item >
-                            <Typography 
-                                className={classes.title}  
-                                color="textPrimary"
-                                variant="subtitle" 
+                                variant="subtitle1" 
                                 noWrap
                             >
                                 More
@@ -149,20 +99,7 @@ const Footer = ({title, nav1, nav2, nav3}) => {
                         alignItems="center"
                         justify="flex-start"
                     >
-                        <Grid item  >
-                            <Typography 
-                                className={classes.title} 
-                                component={MaterialLink}
-                                style={{textDecoration: 'none'}}
-                                href='https://www.facebook.com/odotflights'
-                                target="_blank" 
-                                color="textPrimary"
-                                variant="h5" 
-                                noWrap
-                            >
-                                <FacebookIcon fontSize="large"/>
-                            </Typography>
-                        </Grid>
+                        
                         <Grid item  >
                             <Typography 
                                 className={classes.title} 
@@ -236,19 +173,7 @@ const Footer = ({title, nav1, nav2, nav3}) => {
                     
                 </Grid>
                 </Grid>
-                <Modal
-                    style={getModalStyle()}
-                    className={classes.modal}
-                    open={open}
-                    onClose={handleClose}
-                    closeAfterTransition
-                >
-                    <>
-                        <CookieModal
-                            handleClose={handleClose}
-                        />
-                    </>
-                </Modal> 
+                
             </Toolbar>
         </AppBar>  
     )

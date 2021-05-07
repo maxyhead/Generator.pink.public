@@ -14,15 +14,17 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-
 import WalletButton from '../../components/buttons/WalletButton'
 import WalletModal from '../../components/walletmodal/WalletModal.component'
 
+import ContactUs from '../../components/contact/ContactUs.component'
 
 function Landing( { }) {
   const {account, chainId, library } = useWeb3React();
 
   const classes = useStyles();
+
+  
 
   React.useEffect(() => {
  
@@ -45,7 +47,7 @@ function Landing( { }) {
     >
       <Grid 
         container 
-        alignItems='center'
+        alignItems='flex-start'
         direction='column'
         className={classes.hero}
         spacing={6}
@@ -56,7 +58,7 @@ function Landing( { }) {
           </Typography>
         </Grid>
         
-        <Grid item xs={12}>
+        <Grid item >
             <Grid item xs={12}>
                 <Typography variant="h5" >
                   Three step process 
@@ -96,10 +98,10 @@ function Landing( { }) {
           </Typography>
         </Grid>
         <Grid container spacing={1} className={classes.darkcontainer}  >
-          <Grid container spacing={1}>
+          <Grid container spacing={0}>
             <Grid item >
-              <Typography variant="h5">
-                  Generator 
+              <Typography variant="h5" noWrap>
+                  Generator  
               </Typography>
             </Grid>
             <Grid item>
@@ -109,7 +111,7 @@ function Landing( { }) {
             </Grid>
             <Grid item>
               <Typography variant="h5">
-                is a tokenisation  service for digital files.
+                &nbsp; is a tokenisation  service for digital files.
               </Typography>
             </Grid>
             <Grid item>
@@ -226,16 +228,8 @@ function Landing( { }) {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="body1">
-            INPUTFIELD AND CHECKBOX FOR THIS
-          </Typography>
+          <ContactUs/>
         </Grid>
-        <Grid item xs={12} style={{minHeight: '100px'}}>
-          <Typography variant="body1" gutterBottom>
-           
-          </Typography>
-        </Grid>
-      
       </Grid>
     </Grid>        
   );
