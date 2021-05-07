@@ -15,6 +15,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import { useToasts } from 'react-toast-notifications'
 import { useStyles } from './ContactUs.styles'
+import Links from '../../constants/links';
 
 export default function ContactUs() {
 
@@ -66,7 +67,7 @@ export default function ContactUs() {
                 name="from_name" 
                 variant='outlined' 
                 size='small' 
-                color='secondary'
+                color='none'
                 className={classes.textfield}
                 onChange={(e)=>setAddress(e.target.value)}
               />
@@ -74,7 +75,7 @@ export default function ContactUs() {
             <Grid item >
               <FormControlLabel
                 value="bottom"
-                control={<Checkbox type="checkbox" size='medium' className={classes.checkbox} onClick={(e)=>setAccepted(!accepted)} ></Checkbox>} 
+                control={<Checkbox type="checkbox" color='primary' size='medium' className={classes.checkbox} onClick={(e)=>setAccepted(!accepted)} ></Checkbox>} 
                 labelPlacement="bottom"
               />
             </Grid>
@@ -87,7 +88,7 @@ export default function ContactUs() {
               <Typography variant='caption'>E-MAIL</Typography>
             </Grid>
             <Grid item >
-              <Typography variant='caption'  color='secondary' component={Link} href='' target='_blank'> AGREE TO TERMS AND PRIVACY</Typography>
+              <Typography variant='caption'  color='textPrimary' component={Link} href={Links.terms} target='_blank'> AGREE TO TERMS AND PRIVACY</Typography>
             </Grid>
           </Grid>
       

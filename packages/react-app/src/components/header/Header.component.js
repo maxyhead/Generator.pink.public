@@ -131,31 +131,31 @@ const Header = ({ nav1, nav2, provider, loadWeb3Modal, logoutOfWeb3Modal}) => {
             <Toolbar className={classes.header}>
                 <Grid 
                     container
-                    justify='center'
+                    justify='space-between'
                     alignItems='center'
                 >
-                    <Grid  container item xs justify='center' alignItems='center'>
-                        <Grid container item xs >
-                            <Typography 
-                                component={Link}
-                                to={`/`} 
-                                color="textPrimary"
-                                variant="h4" 
-                                noWrap
-                            >
-                                Generator 
-                            </Typography>
-                            <Typography 
-                                color="primary"
-                                variant="h4" 
-                                noWrap
-                            >
-                            .
-                            </Typography>
-                        </Grid>
-                        
+                    
+                    <Grid container item lg={3} className={classes.nowrapper} alignItems='center' justify='flex-start'>
+                        <Typography 
+                            component={Link}
+                            to={`/`} 
+                            color="textPrimary"
+                            variant="h3" 
+                            
+                        >
+                            Generator 
+                        </Typography>
+                        <Typography 
+                            color="primary"
+                            variant="h3" 
+                            
+                        >
+                        .
+                        </Typography>
                     </Grid>
-                    <Grid  container item xs spacing={0} justify='space-evenly' alignItems='center'>
+                        
+
+                    <Grid  container item lg spacing={3} alignItems='baseline' justify='flex-start'>
                             <Grid item  >
                                 <Typography 
                                     className={classes.title} 

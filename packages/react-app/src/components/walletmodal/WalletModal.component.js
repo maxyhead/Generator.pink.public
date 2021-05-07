@@ -21,6 +21,7 @@ import { useStyles } from './WalletModal.styles';
 
 import { MAX_UINT, formatter } from '../../utils/utils';
 import { addresses, abis } from "@project/contracts";
+import Links from '../../constants/links';
 
 const WalletModal = (props) => {
     const {account, chainId, library } = useWeb3React();
@@ -51,7 +52,7 @@ const WalletModal = (props) => {
                             </Typography>   
                         </Grid>
                         <Grid item xs>
-                            <Typography variant="body1" component={Link} href='' target='_blank'>
+                            <Typography variant="body1" component={Link} href={Links.terms} target='_blank'>
                                 Terms of Service, Privacy and Cookie Policy.
                             </Typography>    
                         </Grid>
@@ -81,8 +82,6 @@ const WalletModal = (props) => {
                     </Grid>
                     <Grid 
                         container
-
-                        
                         justify='center'
                         alignItems='center'
                     >

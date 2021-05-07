@@ -95,6 +95,14 @@ const ItemCard = ({id}) => {
 
             {item ? 
             <>
+                <CardHeader
+                    title={
+                        <Typography variant='body1'>
+                          Token ID: {id}
+                        </Typography>
+                      
+                    }
+                />
                 <Grid container item >
                     <Grid item xs>
                         <Typography variant='caption'>

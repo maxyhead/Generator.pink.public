@@ -8,6 +8,7 @@ import useBlock from '../../hooks/useBlock';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 
+import Links from '../../constants/links';
 
 const Footer = ({title, nav1, nav2, nav3}) => {
     const { account } = useWeb3React();
@@ -41,6 +42,7 @@ const Footer = ({title, nav1, nav2, nav3}) => {
                                 className={classes.title}  
                                 color="textPrimary"
                                 variant="subtitle1" 
+                                target="_blank" 
                                 noWrap
                             >
                                 Imprint
@@ -63,7 +65,8 @@ const Footer = ({title, nav1, nav2, nav3}) => {
                                 variant="subtitle1" 
                                 component={MaterialLink}
                                 style={{textDecoration: 'none'}}
-                                href='https://www.facebook.com/odotflights'
+                                href={Links.terms}
+                                target="_blank" 
                                 noWrap
                             >
                                 Terms & Privacy 
@@ -85,6 +88,7 @@ const Footer = ({title, nav1, nav2, nav3}) => {
                                 className={classes.title}  
                                 color="textPrimary"
                                 variant="subtitle1" 
+                                target="_blank" 
                                 noWrap
                             >
                                 More
@@ -105,7 +109,7 @@ const Footer = ({title, nav1, nav2, nav3}) => {
                                 className={classes.title} 
                                 component={MaterialLink}
                                 style={{textDecoration: 'none'}}
-                                href='https://www.linkedin.com/company/hyperpaper'
+                                href={Links.linkedin}
                                 target="_blank" 
                                 color="textPrimary"
                                 variant="h5" 
@@ -119,7 +123,7 @@ const Footer = ({title, nav1, nav2, nav3}) => {
                                 className={classes.title} 
                                 component={MaterialLink}
                                 style={{textDecoration: 'none'}}
-                                href='https://twitter.com/Certyfact'
+                                href={Links.twitter}
                                 target="_blank" 
                                 color="textPrimary"
                                 variant="h5" 
@@ -167,7 +171,7 @@ const Footer = ({title, nav1, nav2, nav3}) => {
                             variant="caption" 
                             noWrap
                         >
-                            © 2021 by Roston Dev
+                            © 2021 Certyfact
                         </Typography>
                     </Grid>
                     

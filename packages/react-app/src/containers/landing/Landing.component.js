@@ -19,6 +19,8 @@ import WalletModal from '../../components/walletmodal/WalletModal.component'
 
 import ContactUs from '../../components/contact/ContactUs.component'
 
+import TextBlocks from '../../constants/text';
+
 function Landing( { }) {
   const {account, chainId, library } = useWeb3React();
 
@@ -54,30 +56,30 @@ function Landing( { }) {
       >
         <Grid item xs={12}>
           <Typography variant="h1" className={classes.title}>
-            Hi! I will generate an NFT from your file.
+            {TextBlocks.hero_big}
           </Typography>
         </Grid>
         
         <Grid item >
             <Grid item xs={12}>
                 <Typography variant="h5" >
-                  Three step process 
+                  {TextBlocks.title}
                 </Typography>
             </Grid>
-            <List dense='true' className={classes.mintercontainer}>
+            <List dense={true} className={classes.mintercontainer}>
               <ListItem>
                 <Typography variant="body1" className={classes.title}>
-                  1. Connect Wallet
+                  {TextBlocks.step1}
                 </Typography>
               </ListItem>
               <ListItem>
                 <Typography variant="body1" className={classes.title}>
-                  2. Upload File
+                  {TextBlocks.step2}
                 </Typography>
               </ListItem>
               <ListItem>
                 <Typography variant="body1" className={classes.title}>
-                  3. Receive NFT in your wallet
+                  {TextBlocks.step3}
                 </Typography>
               </ListItem>
             </List>
@@ -94,11 +96,11 @@ function Landing( { }) {
       >
         <Grid item xs={12}>
           <Typography variant="h4">
-              The Service
+            {TextBlocks.hero_dark.title}
           </Typography>
         </Grid>
         <Grid container spacing={1} className={classes.darkcontainer}  >
-          <Grid container spacing={0}>
+          <Grid container >
             <Grid item >
               <Typography variant="h5" noWrap>
                   Generator  
@@ -106,17 +108,17 @@ function Landing( { }) {
             </Grid>
             <Grid item>
               <Typography variant="h5" color='primary' >
-                . 
+                .  &nbsp; 
               </Typography>
             </Grid>
             <Grid item>
               <Typography variant="h5">
-                &nbsp; is a tokenisation  service for digital files.
+               {TextBlocks.hero_dark.content_l1}
               </Typography>
             </Grid>
             <Grid item>
               <Typography variant="h5">
-                It creates an ERC-721 token on Ethereum blockchain which contains information of the referenced file.
+              {TextBlocks.hero_dark.content_l2}
               </Typography>
             </Grid>
           </Grid>
@@ -130,7 +132,7 @@ function Landing( { }) {
             variant='contained'
             color='default'
           >
-              Learn More
+              {TextBlocks.hero_dark.button}
           </Button>
         </Grid>
       </Grid>
@@ -142,70 +144,65 @@ function Landing( { }) {
       >
         <Grid item xs={12}>
           <Typography variant="h5" className={classes.bordersubtile}>
-              Why
+             {TextBlocks.explainer.headertitle}
           </Typography>
         </Grid>
         <Grid container spacing={2} alignItems='flex-start' >
-          <Grid  item md spacing={2} className={classes.textcontainer} alignItems='flex-start'>
+          <Grid  item md  className={classes.textcontainer} >
             <Grid item xs className={classes.box}>
               <Typography variant='h4' className={classes.title} gutterBottom>
-                Problem
+                {TextBlocks.explainer.box_left.title}
               </Typography>
             </Grid>
             <Grid item className={classes.box} >
               <Typography variant='h6' gutterBottom >
-                Who would buy a jpg-file for $69 million if it needs to be sure that the file is unique?
+              {TextBlocks.explainer.box_left.content_l1}
               </Typography>
             </Grid>
             <Grid item className={classes.box}>
               <Typography variant='h6' gutterBottom>
-                In conventional IT, such a purchase would never have happened digitally, because the risk of a copyable proof of ownership would be too big.
+              {TextBlocks.explainer.box_left.content_l2}
               </Typography>
             </Grid>
            
           </Grid>
-          <Grid  item  md className={classes.textcontainer} alignItems='flex-start'>
+          <Grid  item  md className={classes.textcontainer} >
             <Grid item xs className={classes.box}>
               <Typography variant='h4' className={classes.title} gutterBottom>
-                Solution
+                {TextBlocks.explainer.box_center.title}
               </Typography>
             </Grid>
             <Grid item className={classes.box}>
               <Typography variant='h6' gutterBottom>
-                With blockchain technology it is possible to generate digital proof of ownership and the purchase of the jpg-file for $69 million has happened. 
+              {TextBlocks.explainer.box_center.content_l1}
               </Typography>
             </Grid>
             <Grid item className={classes.box}>
               <Typography variant='h6' gutterBottom>
-                The jpg-file was tokenized and reference date have been saved on an object called Non Fungible Token (NFT).
+              {TextBlocks.explainer.box_center.content_l2}
               </Typography>
             </Grid>
            
            
           </Grid>
-          <Grid item md spacing={2} className={classes.textcontainer} alignItems='flex-start'>
+          <Grid item md className={classes.textcontainer} >
             <Grid item xs={12} className={classes.box}>
               <Typography variant='h4' className={classes.title} gutterBottom >
-                Execution
+              {TextBlocks.explainer.box_right.title}
               </Typography>
             </Grid>
             <Grid item xs={12} className={classes.box}>
               <Typography variant='h6' gutterBottom>
-                Generator. is a service which creates Non Fungible Tokens (NFTs) based on any uploaded file.
+              {TextBlocks.explainer.box_right.content_l1}
               </Typography>
             </Grid>    
             <Grid item xs={12}className={classes.box}>
               <Typography variant='h6' gutterBottom>
-                The created token including the reference date of the file will be stored on the Ethereum blockchain.
+              {TextBlocks.explainer.box_right.content_l2}
               </Typography>
             </Grid>       
           </Grid>
          
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant="h5" className={classes.bordersubtile}>
-              Video
-          </Typography>
         </Grid>
       
       </Grid>
@@ -218,13 +215,12 @@ function Landing( { }) {
       >
         <Grid item xs={12} >
           <Typography variant="h5" className={classes.bordersubtile}>
-              Subscription
+            {TextBlocks.subcription.title}
           </Typography>
         </Grid>
         <Grid item xs={12} >
           <Typography variant="body1">
-            Your Generator. account does not work with e-mail and password. Your wallet is the identifier instead.
-            If you want to be kept informed by this page, please sign up with your e-mail address. We won't spam you!
+            {TextBlocks.subcription.content_l1}
           </Typography>
         </Grid>
         <Grid item xs={12}>
