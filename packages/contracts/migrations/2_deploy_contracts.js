@@ -9,7 +9,7 @@ module.exports = async function (deployer) {
     const fee = '5'; 
     const feeReciver = addresses.dev;
     const oracleReff  = "0xDA7a001b254CD22e46d3eAB04d937489c93174C3"; // KOVAN ADDRESS
-
+    
     await deployer.deploy(
         Contract,
         fee, 

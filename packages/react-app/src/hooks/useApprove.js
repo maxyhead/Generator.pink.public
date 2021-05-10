@@ -51,7 +51,7 @@ const useApprove = (amount, address, contract) => {
             address,
             amount.toString(),
         )
-        console.log(message);
+        // console.log(message);
       },
       [account, address, amount, contract],
     )

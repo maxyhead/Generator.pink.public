@@ -21,7 +21,7 @@ import TitleCard from '../titlecard/TitleCard.component';
 
 const renderCards = (docs) => {
     const cards = [];
-    console.log(docs[0].id)
+    // console.log(docs[0].id)
     for(let i = 0; i < docs.length; i++) {
         cards.push(
         <Grid item lg={6} key={i}>

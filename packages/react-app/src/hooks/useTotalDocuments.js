@@ -13,7 +13,7 @@ const useTotalDocuments = () => {
         const contract = getGeneratorContract(library, chainId);   
         const data = await contract.methods.totalSupply().call();
         setInfo(data);
-    }, [account, library])
+    }, [library, chainId])
 
     useEffect(() => {
 

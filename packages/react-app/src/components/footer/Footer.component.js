@@ -1,16 +1,15 @@
 import React from 'react'
-import { Grid, AppBar, Toolbar, Typography, Modal, Button, Link as MaterialLink} from '@material-ui/core'
-import { Link } from 'react-router-dom'
+import { Grid, AppBar, Toolbar, Typography, Link as MaterialLink} from '@material-ui/core'
 import { useStyles } from './Footer.styles'
 import { useWeb3React } from '@web3-react/core';
 import useBlock from '../../hooks/useBlock';
 
 import TwitterIcon from '@material-ui/icons/Twitter';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
-
+import DiscordIcon from '../../assets/DiscordIcon.png'
 import Links from '../../constants/links';
 
-const Footer = ({title, nav1, nav2, nav3}) => {
+const Footer = () => {
     const { account } = useWeb3React();
   
     const classes = useStyles();
@@ -103,6 +102,20 @@ const Footer = ({title, nav1, nav2, nav3}) => {
                         alignItems="center"
                         justify="flex-start"
                     >
+                        <Grid item  >
+                            <Typography 
+                                className={classes.title} 
+                                component={MaterialLink}
+                                style={{textDecoration: 'none'}}
+                                href={Links.discord}
+                                target="_blank" 
+                                color="textPrimary"
+                                variant="h5" 
+                                noWrap
+                            >
+                                <img src={DiscordIcon} alt='Discord' className={classes.avatar}/>
+                            </Typography>
+                        </Grid> 
                         
                         <Grid item  >
                             <Typography 
@@ -115,7 +128,7 @@ const Footer = ({title, nav1, nav2, nav3}) => {
                                 variant="h5" 
                                 noWrap
                             >
-                                <LinkedInIcon fontSize="large"/>
+                                <LinkedInIcon fontSize="large" />
                             </Typography>
                         </Grid> 
                         <Grid item  >
@@ -129,7 +142,7 @@ const Footer = ({title, nav1, nav2, nav3}) => {
                                 variant="h5" 
                                 noWrap
                             >
-                                <TwitterIcon fontSize="large"/>
+                                <TwitterIcon fontSize="large" />
                             </Typography>
                         </Grid> 
                     </Grid>
@@ -151,7 +164,7 @@ const Footer = ({title, nav1, nav2, nav3}) => {
                                 variant="caption" 
                                 noWrap
                             >
-                                🟢 Block: {block == 0 ? 'Loading....' : block}
+                                <span> 🟢 </span> Block: {block === 0 ? 'Loading....' : block}
                             </Typography>
                         :
                             <Typography 
@@ -160,7 +173,7 @@ const Footer = ({title, nav1, nav2, nav3}) => {
                                 variant="caption" 
                                 noWrap
                             >
-                                🔴 Block: ?
+                                <span> 🔴 </span> Block: ?
                             </Typography>
                         } 
                     </Grid>

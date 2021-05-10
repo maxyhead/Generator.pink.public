@@ -27,7 +27,7 @@ const useBurn = (id, hash) => {
                 appearance: 'success',
                 autoDismiss: true,
             })
-            console.log('IPFS HASH TO UNPIN', hash)
+            // console.log('IPFS HASH TO UNPIN', hash)
             await removePinFromIPFS(hash)
         }).catch((err) => {
             if(err.message.includes("User denied transaction signature")) {
@@ -46,7 +46,7 @@ const useBurn = (id, hash) => {
 
     const handleBurn = React.useCallback(
       async () => {
-        console.log('IPFS HASH TO UNPIN', hash)
+        // console.log('IPFS HASH TO UNPIN', hash)
         await burn(
             id,
             hash

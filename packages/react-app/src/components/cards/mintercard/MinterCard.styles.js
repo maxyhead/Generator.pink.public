@@ -30,4 +30,8 @@ export const useStyles = makeStyles({
         width:'100%',
         objectFit: 'contain'
     },
+    avatar:{
+        height:'35px',
+        width: '35px'
+    }
 });

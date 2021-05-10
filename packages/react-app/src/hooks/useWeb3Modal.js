@@ -28,7 +28,7 @@ function useWeb3Modal(config = {}) {
   const loadWeb3Modal = useCallback(async () => {
     const newProvider = await web3Modal.connect();
     setProvider(new Web3Provider(newProvider));
-    console.log('New provider: ', newProvider);
+    // console.log('New provider: ', newProvider);
     activate(injected);
   }, [web3Modal, activate]);
 

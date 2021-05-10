@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import BigNumber from 'bignumber.js'
+import { useCallback, useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core';
 import useBlock from './useBlock'
 
@@ -20,7 +19,7 @@ const useGetUserDocuments = () => {
             }
         }
         setInfo(arr);
-    }, [account, library, docs])
+    }, [ account, docs])
 
 
     useEffect(() => {

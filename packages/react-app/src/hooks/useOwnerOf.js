@@ -13,7 +13,7 @@ const useOwnerOf = (id) => {
         const contract = getGeneratorContract(library, chainId);   
         const data = await contract.methods.ownerOf(id).call();
         setInfo(data);
-    }, [account, library, id])
+    }, [chainId, library, id])
 
     useEffect(() => {
 

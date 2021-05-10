@@ -106,7 +106,7 @@ const PickerInput = (props) => {
     const classes = useStyles();
 
     React.useEffect(() => {
-        console.log('PICKERINPUT')
+        // console.log('PICKERINPUT')
         if(account && library) {   
             setBalance(
                 library.utils.fromWei(tokenBalance.toString(), 'ether')

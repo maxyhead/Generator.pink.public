@@ -1,16 +1,11 @@
 import React from 'react'
-import { Button, Grid, AppBar, Toolbar, Typography, Modal, Link as MaterialLink} from '@material-ui/core'
+import { Button, Grid, AppBar, Toolbar, Typography, Modal } from '@material-ui/core'
 import { useWeb3React } from '@web3-react/core';
 import { Link } from 'react-router-dom'
-import { formatter } from '../../utils/utils'
 import { useStyles } from './Header.styles'
-import { addresses, abis } from "@project/contracts";
 
 import useBalance from '../../hooks/useBalance';
-import useTokenBalance from '../../hooks/useTokenBalance';
-
 import WalletModal from '../walletmodal/WalletModal.component'
-import SettingsIcon from '@material-ui/icons/Settings';
 
 const WalletButton = ({ provider, loadWeb3Modal, logoutOfWeb3Modal }) => {
     const { account } = useWeb3React();
@@ -123,7 +118,7 @@ const Header = ({ nav1, nav2, provider, loadWeb3Modal, logoutOfWeb3Modal}) => {
     const classes = useStyles();
   
     React.useEffect(() => {
-    
+        
     }, [account, accountBalance])
 
     return (

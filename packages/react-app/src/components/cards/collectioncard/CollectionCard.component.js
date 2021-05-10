@@ -23,7 +23,7 @@ const CollectionCard = () => {
     const docs = useGetAllDocuments([]);
 
     React.useEffect(()=>{
-        console.log(docs)
+        // console.log(docs)
 
     }, [docs, chainId, account])
    

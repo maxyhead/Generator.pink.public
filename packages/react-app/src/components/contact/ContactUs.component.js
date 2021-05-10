@@ -9,29 +9,26 @@ import {
   Link
 } from '@material-ui/core'
 
-import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import { useToasts } from 'react-toast-notifications'
 import { useStyles } from './ContactUs.styles'
 import Links from '../../constants/links';
-
+import Keys from '../../constants/keys';
 export default function ContactUs() {
 
   const classes = useStyles();
   const { addToast } = useToasts();
 
-  const serviceID = 'service_6cy7csv';
-  const templateID = 'template_c9ye7ku';
-  const userID = 'user_PDwl4eGfmmTnpjWKn1AmP';
+  const serviceID = Keys.emailjs_serviceId.toString();
+  const templateID = Keys.emailjs_templateId.toString();
+  const userID = Keys.emailjs_id.toString();
 
   const [ accepted, setAccepted ] = React.useState(false);
   const [ address, setAddress ] = React.useState();
 
   function sendEmail(e) {
     e.preventDefault();
-    if(accepted !== true && address == undefined) {
+    if(accepted === false || address == undefined) {
       addToast('Please make shure the form is filled in.', {
           appearance: 'error',
           autoDismiss: true,
@@ -48,7 +45,7 @@ export default function ContactUs() {
                 appearance: 'error',
                 autoDismiss: true,
             })
-            console.log(error.text);
+            // console.log(error.text);
         });
     }
 
@@ -67,7 +64,6 @@ export default function ContactUs() {
                 name="from_name" 
                 variant='outlined' 
                 size='small' 
-                color='none'
                 className={classes.textfield}
                 onChange={(e)=>setAddress(e.target.value)}
               />

@@ -3,34 +3,32 @@ import {
     Grid,
     Typography,
     Button,
-    Input, 
-    InputLabel
+    Avatar
 } from '@material-ui/core'
 
 import MaterialCard from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import Avatar from '@material-ui/core/Avatar';
 import DateFnsUtils from '@date-io/date-fns';
 
 import { DropzoneArea } from 'material-ui-dropzone';
 
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
 import IconButton from '@material-ui/core/IconButton';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Tooltip from '@material-ui/core/Tooltip';
 import HelpIcon from '@material-ui/icons/Help';
-import AccountBalanceWalletRounded from '@material-ui/icons/AccountBalanceWalletRounded'
-import { formatter, getUniqueID, unixdate, convertTimestamp } from '../../../utils/utils'
+import { getUniqueID, unixdate } from '../../../utils/utils'
 import { useWeb3React } from '@web3-react/core';
 import { useStyles } from './MinterCard.styles';
-import { AttachFile, Description, PictureAsPdf, Theaters } from '@material-ui/icons';
 import BackspaceIcon from '@material-ui/icons/Backspace';
+
+import IpLogo from '../../../assets/IpLogo.png'
+import MoneyLogo from '../../../assets/MoneyLogo.png'
+import UUIDLogo from '../../../assets/UUIDLogo.png'
+import WalletLogo from '../../../assets/WalletLogo.png'
 
 import BasicInput from '../../inputs/BasicInput';
 import useClientIP from '../../../hooks/useClientIp';
@@ -39,7 +37,7 @@ import useCurrentPrice from '../../../hooks/useCurrentPrice';
 import useBalance from '../../../hooks/useBalance';
 import useMintToken from '../../../hooks/useMintToken';
 import useGetHash from '../../../hooks/useGetHash';
-
+import useEstimateGas from '../../../hooks/useEstimateGas';
 const FileType = require('file-type/browser');
 
 const MinterCard = () => {
@@ -59,6 +57,18 @@ const MinterCard = () => {
     const [ fileBuffer, setFileBuffer ] = React.useState();
     const [ ipfsHash, setIpfsHash ] = React.useState();
     const { onMint } = useMintToken(
+        UUID,
+        title, 
+        description, 
+        ipfsHash,
+        selectedUnixDate, 
+        name, 
+        fullAddress,
+        email,
+        site, 
+        ip 
+    );
+    const gasEstimate = useEstimateGas(
         UUID,
         title, 
         description, 
@@ -134,17 +144,18 @@ const MinterCard = () => {
                 const response = await fetch(objectURL);
                 const type = await FileType.fromStream(response.body);
                 setFileType(type ? type.mime : '');
-                console.log(type ? type.mime : '');
+                // console.log(type ? type.mime : '');
                 //=> {ext: 'jpg', mime: 'image/jpeg'}
             })();
         }
        
         setUUID(getUniqueID())
         if(hash) {
-            console.log(hash)
+            // console.log(hash)
             setIpfsHash(hash);
         }
-    }, [account, hash, file, fileBuffer])
+        console.log(gasEstimate)
+    }, [account, hash, file, fileBuffer, gasEstimate])
 
   
     return (
@@ -164,9 +175,7 @@ const MinterCard = () => {
                             <Grid container className={classes.subheader} >
                                 <Grid container item lg={6} alignItems='center' spacing={1}  >
                                     <Grid item > 
-                                        <Typography variant='h6' color='primary'>
-                                            🆔  
-                                        </Typography> 
+                                        <img src={UUIDLogo} className={classes.avatar}/>
                                     </Grid>
                                     <Grid item > 
                                         <Typography variant='h5' color='primary'>
@@ -186,9 +195,7 @@ const MinterCard = () => {
                                 </Grid>
                                 <Grid  container item lg={6} alignItems='center' spacing={1} >
                                     <Grid item >
-                                        <Typography variant='h6'>
-                                            🌐 
-                                        </Typography> 
+                                        <img src={IpLogo} className={classes.avatar}/>
                                     </Grid>
                                     <Grid item >
                                         <Typography variant='h6'>
@@ -212,9 +219,7 @@ const MinterCard = () => {
                             
                                 <Grid container item lg={6} alignItems='center' spacing={1}>
                                     <Grid item >
-                                        <Typography variant='h6' noWrap>
-                                            🪙 
-                                        </Typography> 
+                                        <img src={MoneyLogo} className={classes.avatar}/>
                                     </Grid>
                                     <Grid item >
                                         <Typography variant='h6' noWrap>
@@ -236,9 +241,7 @@ const MinterCard = () => {
                                 </Grid>
                                 <Grid container item lg={6} alignItems='center' spacing={1}>
                                     <Grid item >
-                                        <Typography variant='h6' noWrap>
-                                            🏦
-                                        </Typography> 
+                                        <img src={WalletLogo} className={classes.avatar}/>
                                     </Grid>
                                     <Grid item >
                                         <Typography variant='h6' noWrap>

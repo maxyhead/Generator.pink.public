@@ -2,12 +2,12 @@ import BigNumber from 'bignumber.js'
 import pinataSDK from '@pinata/sdk';
 import CID from 'cids'
 import axios from 'axios'
-require('dotenv').config();
+import Keys from '../constants/keys';
 
 const FileType = require('file-type/browser');
 
 
-const pinata = pinataSDK(process.env.REACT_APP_PINATA_API_KEY, process.env.REACT_APP_PINATA_API_SECRET);
+const pinata = pinataSDK(Keys.pinata_key, Keys.pinata_secret);
 
 const ipfsClient = require('ipfs-http-client')
 var uniqid = require('uniqid');
@@ -77,17 +77,17 @@ export const removePinFromIPFS = (hashToUnpin) => {
     return axios
         .delete(url, {
             headers: {
-                pinata_api_key: "b1c5782db19f6b99439b",
-                pinata_secret_api_key: "d0a4e88f9630c7ed2526415e229edf108a1e84918f3e7b14d5d9af9c12774744"
+                pinata_api_key: Keys.pinata_key,
+                pinata_secret_api_key: Keys.pinata_secret
             }
         })
         .then(function (response) {
             //handle response here
-            console.log('response');
+            // console.log('response');
             console.log(response);
         })
         .catch(function (error) {
-            console.log('error');
+            // console.log('error');
             console.log(error);
             //handle error here
         });
@@ -111,11 +111,11 @@ export const pinHashtoPinata = (multihash, _name, minterAddress) => {
           }
       }
   };
-  
+  console.log(Keys)
   axios.post(url, body, {
           headers: {
-              pinata_api_key: "b1c5782db19f6b99439b",
-              pinata_secret_api_key: "d0a4e88f9630c7ed2526415e229edf108a1e84918f3e7b14d5d9af9c12774744"
+              pinata_api_key: Keys.pinata_key,
+              pinata_secret_api_key: Keys.pinata_secret
           }
       }).then(function (response) {
           //handle response here
@@ -132,10 +132,10 @@ export const pinHashtoPinata = (multihash, _name, minterAddress) => {
 export const checkPinataConnection = async () =>{
   await pinata.testAuthentication().then((result) => {
       //handle successful authentication here
-      console.log(result);
+        console.log(result);
       return result; 
   }).catch((err) => {
-    console.log(err);
+        console.log(err);
   });
 }
 const blocksPerYear = new BigNumber(10518975); 

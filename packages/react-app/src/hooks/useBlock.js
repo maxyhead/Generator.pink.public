@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useState } from 'react'
+import {  useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core';
-import { addresses, abis } from "@project/contracts";
 
 const useBlock = () => {
   const [block, setBlock] = useState(0)
@@ -18,7 +17,7 @@ const useBlock = () => {
     }, 10000)
 
     return () => clearInterval(interval)
-  }, [library])
+  }, [library, block])
 
   return block
 }

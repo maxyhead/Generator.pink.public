@@ -12,10 +12,6 @@ import { addresses } from "@project/contracts";
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-
-import WalletButton from '../../components/buttons/WalletButton'
-import WalletModal from '../../components/walletmodal/WalletModal.component'
 
 import ContactUs from '../../components/contact/ContactUs.component'
 
@@ -89,7 +85,6 @@ function Landing( { }) {
       
       <Grid 
         container 
-       
         alignItems='center'
         className={classes.darkcontainer}
         spacing={6}
@@ -99,7 +94,7 @@ function Landing( { }) {
             {TextBlocks.hero_dark.title}
           </Typography>
         </Grid>
-        <Grid container spacing={1} className={classes.darkcontainer}  >
+        <Grid container spacing={0} className={classes.darkcontainer}  >
           <Grid container >
             <Grid item >
               <Typography variant="h5" noWrap>
@@ -131,6 +126,8 @@ function Landing( { }) {
           <Button
             variant='contained'
             color='default'
+            component={Link}
+            to='/about'
           >
               {TextBlocks.hero_dark.button}
           </Button>
@@ -147,7 +144,7 @@ function Landing( { }) {
              {TextBlocks.explainer.headertitle}
           </Typography>
         </Grid>
-        <Grid container spacing={2} alignItems='flex-start' >
+        <Grid container spacing={1} alignItems='flex-start' >
           <Grid  item md  className={classes.textcontainer} >
             <Grid item xs className={classes.box}>
               <Typography variant='h4' className={classes.title} gutterBottom>

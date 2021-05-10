@@ -10,9 +10,9 @@ const useGetDocument = (id) => {
     const fetchInfo = useCallback(async () => {
         const contract = getGeneratorContract(library, chainId);   
         const data = await contract.methods.getDocument(id).call();
-        console.log('INFO: ', data);
+        // console.log('INFO: ', data);
         setInfo(data);
-    }, [account, library, id])
+    }, [ library, id, chainId])
 
     useEffect(() => {
 

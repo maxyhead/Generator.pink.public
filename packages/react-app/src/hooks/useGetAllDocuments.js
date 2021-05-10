@@ -1,13 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import BigNumber from 'bignumber.js'
+import { useCallback, useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core';
 import { getGeneratorContract } from '../utils/contracts';
 import useBlock from './useBlock'
 
 import useTotalDocuments from './useTotalDocuments'
-import useGetDocument from './useGetDocument';
-import useOwnerOf from './useOwnerOf';
-
 
 const useGetAllDocuments = () => {
     const { account, library, chainId } = useWeb3React()
@@ -22,7 +18,7 @@ const useGetAllDocuments = () => {
             arr.push(res);
         }
         setInfo(arr);
-    }, [account, library, totalDocuments])
+    }, [ library, totalDocuments, chainId ])
 
 
     useEffect(() => {

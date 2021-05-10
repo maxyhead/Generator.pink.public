@@ -4,8 +4,8 @@ import { addresses, abis } from "@project/contracts";
 import { ipfs, pinHashtoPinata } from '../utils/utils';
 import CID from 'cids'
 import { useToasts } from 'react-toast-notifications'
-const Hash = require('ipfs-only-hash');
 
+const Hash = require('ipfs-only-hash');
 
 const useGetHash = (fileBuffer) => {
     const { account, library, chainId } = useWeb3React()
@@ -15,7 +15,7 @@ const useGetHash = (fileBuffer) => {
 
     const fetchInfo = React.useCallback(async (_fileBuffer) => {
         const hash = await Hash.of(_fileBuffer)
-        console.log(hash);
+        // console.log(hash);
         setHash(hash)
         
     }, [account, library, fileBuffer])

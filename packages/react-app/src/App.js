@@ -31,6 +31,7 @@ import Footer from './components/footer/Footer.component';
 
 import Home from './containers/home/Home.component';
 import Landing from './containers/landing/Landing.component';
+import About from './containers/about/About.component';
 
 import { ToastProvider, DefaultToast } from 'react-toast-notifications';
 
@@ -96,10 +97,12 @@ function App() {
                   <Switch>
                     <Route path="/" exact component={Landing}/>
                     <Route path="/create" exact component={Home}/>
+                    <Route path="/about" exact component={About}/>
                   </Switch>
                 :
                    <Switch>
                     <Route path="/" exact component={Landing}/>
+                    <Route path="/about" exact component={About}/>
                   </Switch>
                 }
               </Grid>

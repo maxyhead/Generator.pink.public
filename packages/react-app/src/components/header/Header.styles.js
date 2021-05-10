@@ -40,7 +40,6 @@ export const useStyles = makeStyles(() => ({
         zIndex: '0',
         display: 'flex',
         flexWrap: 'nowrap',
-       
     },
     modal: {
         zIndex: '1',

@@ -1,9 +1,7 @@
-import React from 'react';
+import { useCallback, useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core';
-import { addresses, abis } from "@project/contracts";
 import { getGeneratorContract } from '../utils/contracts'
-import useCurrentPrice from './useCurrentPrice';
-import { useToasts } from 'react-toast-notifications'
+import useCurrentPrice from '../hooks/useCurrentPrice';
 
 const useEstimateGas = (
     uuid,
@@ -11,32 +9,28 @@ const useEstimateGas = (
     description, 
     uri, 
     validationDate, 
+    name,
+    fullAddress,
     email, 
     website, 
     ipAddress
 ) => {
     const { account, library, chainId } = useWeb3React()
-    const [gas, setGas ] = React.useState();
-    const { addToast } = useToasts();
+    const [gas, setGas ] = useState();
+    const fee = useCurrentPrice();
 
-    React.useEffect(() => {
-       
-    }, [])
-
-    const addDocument = async (
+    const fetchGas = useCallback(async (
         _uuid,
         _title, 
         _description, 
         _uri, 
         _validationDate, 
+        _name,
+        _fulladdress,
         _email, 
         _website, 
         _ipAddress
     ) => {
-        addToast('Waiting for transaction succes...', {
-            appearance: 'info',
-            autoDismiss: true,
-        })
         const contract = getGeneratorContract(library, chainId);
         await contract.methods.addDocument(
             _uuid,
@@ -44,35 +38,40 @@ const useEstimateGas = (
             _description, 
             _uri, 
             _validationDate, 
+            _name,
+            _fulladdress,
             _email, 
             _website, 
             _ipAddress
-        ).estimateGas({from: account, value: fee.toString()}).then((gas)=> {
-           console.log('GAS', gas.toString())
+        ).estimateGas({from: account, value: fee }).then((gas)=> {
+           console.log('GAS', gas )
            setGas(gas)
         }).catch((err) => {
             
 
         });
-    }
+    }, [ library, chainId])
 
-    const handleMint = React.useCallback(
-      async () => {
-        await addDocument(
-            uuid.toString(),
-            title.toString(), 
-            description.toString(), 
-            uri.toString(), 
-            validationDate.toString(), 
-            email.toString(), 
-            website.toString(), 
-            ipAddress.toString()
-        )
-      },
-      [account, title, description, uri, validationDate, email, website, ipAddress],
-    )
+    useEffect(() => {
+
+        if (account && library && fee !== undefined ) {
+            fetchGas(
+                uuid,
+                title, 
+                description, 
+                uri, 
+                validationDate, 
+                name,
+                fullAddress,
+                email, 
+                website, 
+                ipAddress
+            )
+        }
+       
+    }, [account, library, chainId]);
   
-    return {  onMint: handleMint }
+    return gas;
   }
   
   export default useEstimateGas

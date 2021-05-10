@@ -32,7 +32,7 @@ export default function Dropzone() {
   };
 
   React.useEffect(()=>{
-    console.log(files)
+    // console.log(files)
   }, [files])
 
   return (

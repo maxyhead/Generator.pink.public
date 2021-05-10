@@ -11,11 +11,11 @@ export const useStyles = makeStyles(() => ({
     },
     box: {
       height: '100%',
-      margin: '20px',
+      margin: '30px',
       padding: '10px'
     },
     hero: {
-      padding: '150px',
+      padding: '110px',
       minHeight: '50vh'
     },
     subcontainer: {
@@ -44,9 +44,8 @@ export const useStyles = makeStyles(() => ({
       borderBottom: '1px solid #141414'
     },
     title: {
-      display: 'flex',
-      justifyContent: 'center'
-      //textShadow: `0px 4px 12px ${theme.palette.secondary.main}`
+      color: theme.palette.text.main,
+      fontVariantCaps: 'all-small-caps',
     },
     backgroundVideo: {
       position: 'fixed', zIndex: '-99', width: '100vw', height: '100vh'
@@ -55,7 +54,7 @@ export const useStyles = makeStyles(() => ({
       margin:'40px',
       padding:'40px',
       backgroundColor: theme.palette.subcontainer.light,
-      minHeight:'600px'
+
     }
     })
 );

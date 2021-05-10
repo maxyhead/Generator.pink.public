@@ -1,23 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { 
     Grid,
     Typography,
     Button,
-    Input, 
-    InputLabel,
     Link as MaterialLink,
     ButtonGroup,
     Modal,
     TextField
 } from '@material-ui/core'
 
-import {convertTimestamp, checkFileType} from '../../../utils/utils'
-
+import { convertTimestamp } from '../../../utils/utils'
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import MaterialCard from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 
 import { useWeb3React } from '@web3-react/core';
@@ -25,7 +21,6 @@ import { useStyles } from './ItemCard.styles';
 
 import useGetDocument from '../../../hooks/useGetDocument';
 import useGetURI from '../../../hooks/useGetURI';
-
 import useBurn from '../../../hooks/useBurn'
 import useTransfer from '../../../hooks/useTransfer'
 
@@ -76,7 +71,7 @@ const ItemCard = ({id}) => {
             const response = await fetch(uri);
             const type = await FileType.fromStream(response.body);
             setFileType(type ? type.mime : '');
-            console.log(type ? type.mime : '');
+            // console.log(type ? type.mime : '');
             //=> {ext: 'jpg', mime: 'image/jpeg'}
         })();
        }

@@ -18,9 +18,7 @@ const useUploadFile = (fileBuffer, documentTitle ,UUID) => {
             appearance: 'info',
             autoDismiss: true,
         })  
-        console.log(fileBuffer);
-        console.log(documentTitle);
-        console.log(UUID);
+       
         const { cid } = await ipfs.add(fileBuffer);
 
           if(cid !== undefined) {

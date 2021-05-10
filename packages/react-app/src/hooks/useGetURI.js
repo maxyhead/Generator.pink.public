@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react'
-import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core';
 import { getGeneratorContract } from '../utils/contracts';
 
@@ -11,7 +10,7 @@ const useGetURI = (id) => {
         const contract = getGeneratorContract(library, chainId);   
         const data = await contract.methods.getURI(id).call();
         setInfo(data);
-    }, [account, library, id])
+    }, [ library, id, chainId])
 
     useEffect(() => {
 

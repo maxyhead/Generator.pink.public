@@ -8,7 +8,7 @@ export const useStyles = makeStyles(() => ({
         zIndex: '0',
         backgroundColor: theme.palette.footer.main,
         borderTop: `3px solid ${theme.palette.primary.main}`,
-        minHeight:'16vh'
+        minHeight:'18vh'
     },
     title: {
         display: 'none',
@@ -40,4 +40,8 @@ export const useStyles = makeStyles(() => ({
         alignItems: 'center',
         position: 'fixed'
     },
+    avatar: {
+        height: '45px',
+        width: '45px'
+    }
 }));
