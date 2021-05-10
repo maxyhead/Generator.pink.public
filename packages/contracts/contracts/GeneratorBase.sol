@@ -38,7 +38,7 @@ contract GeneratorBase is Ownable, ERC721("Generator.pink","GENERATOR") {
     uint256 public USD_FEE; 
 
     // The oracle refferance address
-    IStdReference ref;
+    IStdReference ref = IStdReference(0xDA7a001b254CD22e46d3eAB04d937489c93174C3);
 
    
     struct Document {
@@ -81,12 +81,10 @@ contract GeneratorBase is Ownable, ERC721("Generator.pink","GENERATOR") {
      */
     constructor (
         uint256 _fee,
-        address payable _reciver,
-        IStdReference _ref
+        address payable _reciver
     ) {
         USD_FEE = _fee;
         feeReciver = _reciver;
-        ref = _ref;
         _setBaseURI('https://gateway.pinata.cloud/ipfs/');
 
     }
@@ -119,9 +117,6 @@ contract GeneratorBase is Ownable, ERC721("Generator.pink","GENERATOR") {
            
         // require that the caller has send enough to the contract
         require(msg.value >= get_FEE_IN_ETH(), 'msg.sender did not pay enough');
-
-
-        // handle the minting of the new token.
 
         // Grab the ID of the document to make. 
         uint256 newid = documents.length; 

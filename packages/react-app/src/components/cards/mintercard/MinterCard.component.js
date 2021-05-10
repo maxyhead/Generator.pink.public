@@ -223,7 +223,7 @@ const MinterCard = () => {
                                     </Grid>
                                     <Grid item >
                                         <Typography variant='h6' noWrap>
-                                            {fee ? library.utils.fromWei(fee, 'ether') : 'Loading...'}
+                                            {fee ? library.utils.fromWei(fee, 'ether') : 'Loading...'} ETH
                                         </Typography> 
                                     </Grid>
                                     <Grid item >
@@ -245,7 +245,7 @@ const MinterCard = () => {
                                     </Grid>
                                     <Grid item >
                                         <Typography variant='h6' noWrap>
-                                            {userBalance ? library.utils.fromWei(userBalance, 'ether') : 'Loading...'}
+                                            {userBalance ? library.utils.fromWei(userBalance, 'ether') : 'Loading...'} ETH
                                         </Typography> 
                                     </Grid>
                                     <Grid item > 
