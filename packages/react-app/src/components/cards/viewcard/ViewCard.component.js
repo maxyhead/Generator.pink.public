@@ -44,7 +44,7 @@ const ViewCard = () => {
 
     React.useEffect(()=>{
 
-    }, [docs, chainId, account])
+    }, [docs.length, chainId, account])
    
 
     return (

@@ -3,7 +3,7 @@ import { Grid, AppBar, Toolbar, Typography, Link as MaterialLink} from '@materia
 import { useStyles } from './Footer.styles'
 import { useWeb3React } from '@web3-react/core';
 import useBlock from '../../hooks/useBlock';
-
+import { Link } from 'react-router-dom'
 import TwitterIcon from '@material-ui/icons/Twitter';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import DiscordIcon from '../../assets/DiscordIcon.png'
@@ -41,6 +41,9 @@ const Footer = () => {
                                 className={classes.title}  
                                 color="textPrimary"
                                 variant="subtitle1" 
+                                component={MaterialLink}
+                                style={{textDecoration: 'none'}}
+                                href={Links.imprint}
                                 target="_blank" 
                                 noWrap
                             >
@@ -87,7 +90,8 @@ const Footer = () => {
                                 className={classes.title}  
                                 color="textPrimary"
                                 variant="subtitle1" 
-                                target="_blank" 
+                                component={Link}
+                                to='/about'
                                 noWrap
                             >
                                 More

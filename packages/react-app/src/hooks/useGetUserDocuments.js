@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core';
 import useBlock from './useBlock'
-
+import { getGeneratorContract } from '../utils/contracts'
 import useGetAllDocuments from './useGetAllDocuments'
 
 const useGetUserDocuments = () => {
@@ -10,16 +10,27 @@ const useGetUserDocuments = () => {
 
     const block = useBlock();
     const docs = useGetAllDocuments([]);
-
+    
     const fetchInfo = useCallback(async () => {
         const arr = []; 
+        const contract = getGeneratorContract(library, chainId);
+
         for(let i = 0; i < docs.length; i++) {
-            if(docs[i].minter === account) {
+            let owner = false; 
+            if(docs[i].timestamp !== '0') {
+                try {
+                    owner = await contract.methods.ownerOf(i).call();
+                } catch (err) {
+                     owner = false;
+                }
+            }
+            
+            if(owner === account) {
                 arr.push(docs[i]);
             }
         }
         setInfo(arr);
-    }, [ account, docs])
+    }, [ account, docs.length, block])
 
 
     useEffect(() => {
@@ -27,7 +38,7 @@ const useGetUserDocuments = () => {
             fetchInfo()
         }
        
-    }, [account, library, docs, chainId, block])
+    }, [account, library, docs.length, chainId, block])
 
     return info
 }

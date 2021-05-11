@@ -1,46 +1,36 @@
 import React from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { addresses, abis } from "@project/contracts";
-import { getFarmContract, getDAI, getUSDT, getUSDC , getOFLY, getWBNB } from '../utils/contracts'
-import {useNotification} from '../components/notifications/provider/Provider.component'
+import { getGeneratorContract } from '../utils/contracts'
+import { useToasts } from 'react-toast-notifications'
 
-const useApprove = (amount, address, contract) => {
+const useApprove = (id) => {
     const { account, library, chainId } = useWeb3React()
-    const [ message, setMessage ] = React.useState();
-    const dispatch = useNotification();
+    const { addToast } = useToasts();
 
-    const handleNewNotification = () => {
-      if(message === 'Transaction Completed'){
-          dispatch({
-              type: 'SUCCESS',
-              message: message,
-              title: "Successful Request"
-            })
-      } else {
-          dispatch({
-              type: 'ERROR',
-              message: message,
-              title: "Error Request"
-            })
-      }
-    }
 
-    React.useEffect(() => {
-        if(account && message !== undefined) {
-            handleNewNotification()
-        }
-    }, [message])
-
-    const approve = async (_address, _amount) => {
-        setMessage('Waiting on transaction succes.....');
+    const approve = async (_id) => {
+        addToast('Waiting for transaction succes...', {
+            appearance: 'info',
+            autoDismiss: true,
+        })
+        const contract  = getGeneratorContract(library, chainId);
         await contract.methods.approve(
-            _address, 
-            _amount
+            account, 
+            _id
         ).send({from: account}).then(()=> {
-          setMessage('Transaction Completed');
+            addToast('Transaction Succes', {
+                appearance: 'succes',
+                autoDismiss: true,
+            })
+
         }).catch((err) => {
           if(err.message.includes("User denied transaction signature")) {
-            setMessage('User denied transaction signature');        
+            addToast('Something went wrong...', {
+              appearance: 'error',
+              autoDismiss: true,
+            })
+            
           }
         })
     }
@@ -48,15 +38,14 @@ const useApprove = (amount, address, contract) => {
     const handleApprove = React.useCallback(
       async () => {
         await approve(
-            address,
-            amount.toString(),
+            id
         )
         // console.log(message);
       },
-      [account, address, amount, contract],
+      [account, id, chainId],
     )
   
-    return {message, onApprove: handleApprove }
+    return { onApprove: handleApprove }
   }
   
   export default useApprove

@@ -5,10 +5,11 @@ import {
 
 export const useStyles = makeStyles({
     card: {
+        minHeight: '50px',
         backgroundColor: theme.palette.paper.main,
         color: theme.palette.text.primary,
         borderRadius : "15px",
-        padding: "10px"
+        padding: "20px"
     },
     content: {
         padding: '50px'
@@ -39,4 +40,7 @@ export const useStyles = makeStyles({
         alignItems: 'center',
         position: 'fixed'
     },
+    button: {
+        minHeight:'30px'
+    }
 });

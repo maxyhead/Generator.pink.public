@@ -35,7 +35,7 @@ function Home() {
       justify='center'
       direction='column'
     >
-      {chainId == 42 ?
+    
       <>
         <Grid item xs={12} className={classes.subcontainer}>
           <MinterCard/>
@@ -44,9 +44,7 @@ function Home() {
           <ViewCard/>
         </Grid>
       </>
-      :
-        <></>
-      }
+     
       
     </Grid>        
   );

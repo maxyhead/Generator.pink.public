@@ -10,6 +10,7 @@ import {
     Avatar, 
     Link
  } from '@material-ui/core'
+import { Link as RouterLink} from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core';
 import MaterialCard from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -65,6 +66,8 @@ const WalletModal = (props) => {
                             size='large'
                             fullWidth={true}
                             onClick={props.handleClose}
+                            component={RouterLink}
+                            to={'/create'}
                         >
                             Agree
                         </Button>

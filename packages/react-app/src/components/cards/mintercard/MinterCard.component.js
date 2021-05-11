@@ -37,7 +37,8 @@ import useCurrentPrice from '../../../hooks/useCurrentPrice';
 import useBalance from '../../../hooks/useBalance';
 import useMintToken from '../../../hooks/useMintToken';
 import useGetHash from '../../../hooks/useGetHash';
-import useEstimateGas from '../../../hooks/useEstimateGas';
+
+
 const FileType = require('file-type/browser');
 
 const MinterCard = () => {
@@ -68,18 +69,7 @@ const MinterCard = () => {
         site, 
         ip 
     );
-    const gasEstimate = useEstimateGas(
-        UUID,
-        title, 
-        description, 
-        ipfsHash,
-        selectedUnixDate, 
-        name, 
-        fullAddress,
-        email,
-        site, 
-        ip 
-    );
+    
     const { hash, onUpload } = useUploadFile(fileBuffer, title, UUID);
     const reader = new FileReader();
     const fee = useCurrentPrice();
@@ -121,8 +111,10 @@ const MinterCard = () => {
     };
 
     const handleMint = (e) => {
-        onMint();
-        onClear();
+        onMint().then(
+            onClear()
+        );
+        
     };
 
 
@@ -154,8 +146,8 @@ const MinterCard = () => {
             // console.log(hash)
             setIpfsHash(hash);
         }
-        console.log(gasEstimate)
-    }, [account, hash, file, fileBuffer, gasEstimate])
+
+    }, [account, hash, file, fileBuffer])
 
   
     return (
@@ -359,10 +351,6 @@ const MinterCard = () => {
                             acceptedFiles={['image/png', 'image/jpg', 'image/jpeg', 'image/svg', 'application/pdf', 'video/mov']}
                             showPreviews={false}
                             showPreviewsInDropzone={false}
-                            useChipsForPreview
-                            previewGridProps={{container: { spacing: 1, direction: 'row' }}}
-                            previewChipProps={{classes: { root: classes.previewChip } }}
-                            previewText="Selected files"
                             onChange={handleChangeFile}
                             onDelete={handleDelete}
                             maxFileSize={1048576000}

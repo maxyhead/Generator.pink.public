@@ -84,11 +84,11 @@ export const removePinFromIPFS = (hashToUnpin) => {
         .then(function (response) {
             //handle response here
             // console.log('response');
-            console.log(response);
+
         })
         .catch(function (error) {
             // console.log('error');
-            console.log(error);
+
             //handle error here
         });
 };
@@ -111,7 +111,7 @@ export const pinHashtoPinata = (multihash, _name, minterAddress) => {
           }
       }
   };
-  console.log(Keys)
+
   axios.post(url, body, {
           headers: {
               pinata_api_key: Keys.pinata_key,

@@ -3,7 +3,7 @@ import { useWeb3React } from '@web3-react/core';
 import { addresses, abis } from "@project/contracts";
 import { ipfs, pinHashtoPinata } from '../utils/utils';
 import CID from 'cids'
-
+import { Link } from '@material-ui/core'
 import { useToasts } from 'react-toast-notifications'
 
 const useUploadFile = (fileBuffer, documentTitle ,UUID) => {
@@ -42,7 +42,7 @@ const useUploadFile = (fileBuffer, documentTitle ,UUID) => {
         })  
         await pinHashtoPinata(cid, documentTitle, UUID);
 
-          addToast(`https://gateway.pinata.cloud/ipfs/${cidv1.toBaseEncodedString()}`, {
+          addToast(<Link href={`https://gateway.pinata.cloud/ipfs/${cidv1.toBaseEncodedString()}`} target='_blank'>{`https://gateway.pinata.cloud/ipfs/${cidv1.toBaseEncodedString()}`}</Link>, {
             appearance: 'success',
             autoDismiss: true,
           });

@@ -22,6 +22,7 @@ const useGetAllDocuments = () => {
 
 
     useEffect(() => {
+
         if (account && library && totalDocuments !== 0) {
             fetchInfo()
         }

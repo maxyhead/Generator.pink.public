@@ -11,7 +11,7 @@ const useTotalDocuments = () => {
 
     const fetchInfo = useCallback(async () => {
         const contract = getGeneratorContract(library, chainId);   
-        const data = await contract.methods.totalSupply().call();
+        const data = await contract.methods.getTotalDocuments().call();
         setInfo(data);
     }, [library, chainId])
 

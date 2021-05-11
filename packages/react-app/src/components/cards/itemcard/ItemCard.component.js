@@ -23,6 +23,8 @@ import useGetDocument from '../../../hooks/useGetDocument';
 import useGetURI from '../../../hooks/useGetURI';
 import useBurn from '../../../hooks/useBurn'
 import useTransfer from '../../../hooks/useTransfer'
+import useAllowance from '../../../hooks/useAllowance';
+import useApprove from '../../../hooks/useApprove';
 
 const FileType = require('file-type/browser');
 
@@ -40,7 +42,8 @@ const ItemCard = ({id}) => {
     const [ isShown, setIsShown ] = React.useState(false);
     const { onBurn } = useBurn(id, item.uri);
     const classes = useStyles();
-
+    const allowance = useAllowance(id);
+    const { onApprove } = useApprove(id);
 
     function getModalStyle() {
         const top = 50;
@@ -75,7 +78,7 @@ const ItemCard = ({id}) => {
             //=> {ext: 'jpg', mime: 'image/jpeg'}
         })();
        }
-    }, [item, chainId, account, id, uri])
+    }, [item, chainId, account, id, uri, allowance])
 
 
     return (
@@ -213,7 +216,8 @@ const ItemCard = ({id}) => {
                     type='text'
                     helperText='Reciever Address'
                 />
-                <Button size='medium' onClick={onTransfer} >SEND</Button>
+                
+                <Button  onClick={onTransfer} variant='outlined' color='primary' className={classes.button}> SEND </Button>
             </MaterialCard>
         </Modal> 
         </MaterialCard>
