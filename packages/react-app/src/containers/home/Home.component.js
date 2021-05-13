@@ -17,8 +17,8 @@ function Home() {
   const classes = useStyles();
 
   React.useEffect(() => {
-    if(chainId !== 42) {
-      addToast('Please connect to the KOVAN TESTNET', {
+    if(chainId !== 42 || chainId !== 1) {
+      addToast('Please connect to the correct network.', {
         appearance: 'info',
         autoDismiss: true,
     })
