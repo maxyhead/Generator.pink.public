@@ -16,7 +16,9 @@ const useGetHash = (fileBuffer) => {
     const fetchInfo = React.useCallback(async (_fileBuffer) => {
         const hash = await Hash.of(_fileBuffer)
         // console.log(hash);
-        setHash(hash)
+        const cidv0 = new CID(hash);
+        const cidv1 = cidv0.toV1();
+        setHash(cidv1.toBaseEncodedString());
         
     }, [account, library, fileBuffer])
 
