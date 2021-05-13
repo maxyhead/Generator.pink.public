@@ -328,7 +328,7 @@ const MinterCard = () => {
                                 format="MM/dd/yyyy"
                                 margin="normal"
                                 id="date-picker-inline"
-                                label="Validity Date of Token"
+                                label="Valid until"
                                 value={selectedDate}
                                 onChange={handleDateChange}
                                 KeyboardButtonProps={{

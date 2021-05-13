@@ -25,7 +25,6 @@ function Home() {
       justify='center'
       direction='column'
     >
-    
       <>
         <Grid item xs={12} className={classes.subcontainer}>
           <MinterCard/>
@@ -33,8 +32,7 @@ function Home() {
         <Grid item xs={12} className={classes.subcontainer}>
           <ViewCard/>
         </Grid>
-      </>
-      
+      </> 
     </Grid>        
   );
 }
