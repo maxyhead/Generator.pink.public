@@ -6,7 +6,9 @@ const addresses = {
     generator: "0x05f86E43540214245B2E7096Fc897Fc9165e205d" 
   },
   // mainnet
-  
+  1: {
+    generator: "PLEASE_ENTER_MAINNET_ADDRESS_HERE"
+  }
 };
 
 export default addresses;
