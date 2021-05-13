@@ -68,7 +68,7 @@ const ItemCard = ({id}) => {
 
 
     React.useEffect(()=>{
-
+        console.log(item);
        if(uri !== undefined) {
         (async () => {
             const response = await fetch(uri);
@@ -187,6 +187,46 @@ const ItemCard = ({id}) => {
                     <Grid item xs={12}>
                         <Typography  variant='body1'>
                             {item ? item.uri : <LinearProgress color="primary" />}
+                        </Typography> 
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography variant='caption'>
+                        NAME:
+                        </Typography>
+                    </Grid>    
+                    <Grid item xs={12}>
+                        <Typography  variant='body1'>
+                            {item ? item.name : <LinearProgress color="primary" />}
+                        </Typography> 
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography variant='caption'>
+                        ADDRESS:
+                        </Typography>
+                    </Grid>    
+                    <Grid item xs={12}>
+                        <Typography  variant='body1'>
+                            {item ? item.fulladdress : <LinearProgress color="primary" />}
+                        </Typography> 
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography variant='caption'>
+                        WEBSITE:
+                        </Typography>
+                    </Grid>    
+                    <Grid item xs={12}>
+                        <Typography  variant='body1'>
+                            {item ? item.website : <LinearProgress color="primary" />}
+                        </Typography> 
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography variant='caption'>
+                        E-MAIL:
+                        </Typography>
+                    </Grid>    
+                    <Grid item xs={12}>
+                        <Typography  variant='body1'>
+                            {item ? item.email : <LinearProgress color="primary" />}
                         </Typography> 
                     </Grid>
                 </Grid>
