@@ -16,16 +16,6 @@ function Home() {
   const { addToast } = useToasts();
   const classes = useStyles();
 
-  React.useEffect(() => {
-    if(chainId !== 42 || chainId !== 1) {
-      addToast('Please connect to the correct network.', {
-        appearance: 'info',
-        autoDismiss: true,
-    })
-    }
-  
-  }, [account, chainId]);
-
   return (
     <Grid
       container
