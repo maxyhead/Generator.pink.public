@@ -7,7 +7,7 @@ const addresses = {
   },
   // mainnet
   1: {
-    generator: "PLEASE_ENTER_MAINNET_ADDRESS_HERE"
+    generator: "0x3700367bAa14B198BAa8591B4C38A17cD9599568"
   }
 };
 
